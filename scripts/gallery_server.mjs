@@ -3,12 +3,33 @@ import http from 'node:http';
 import fs from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
 import path from 'node:path';
-import { ROOT, GALLERY_PORT, PORT, currentStatus, setMode, MODES, readJSON } from './runtime.mjs';
+import { ROOT, STATE, CONTROL_VERSION, GALLERY_PORT, PORT, currentStatus, setMode, MODES, readJSON, stop, selectedMode } from './runtime.mjs';
+
+import { InteractionCoordinator, validReport } from './interaction.mjs';
+const interactions = new InteractionCoordinator();
+let preferences = {};
+try { preferences = await readJSON(path.join(STATE, 'menu-settings.json')); } catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+}
+function updatePreferences(update) {
+  const write = settingsQueue.then(async () => {
+    const next = { ...preferences, ...update };
+    const temporary = path.join(STATE, 'menu-settings.tmp');
+    await fs.writeFile(temporary, JSON.stringify(next, null, 2)+'\n');
+    await fs.rename(temporary, path.join(STATE, 'menu-settings.json'));
+    preferences = next;
+    return { ok: true };
+  });
+  settingsQueue = write.catch(() => {});
+  return write;
+}
 
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg',
   '.webm': 'video/webm', '.json': 'application/json; charset=utf-8' };
 let changingMode = false;
+let lastLoggedSession = null;
+let settingsQueue = Promise.resolve();
 function json(res, status, payload) {
   const data = JSON.stringify(payload);
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8',
@@ -33,7 +54,11 @@ const server = http.createServer(async (req, res) => {
     }
     const url = new URL(req.url, `http://127.0.0.1:${GALLERY_PORT}`);
     if (req.method === 'GET' && url.pathname === '/__yier_gallery_health') {
-      return json(res, 200, { root: ROOT });
+      return json(res, 200, { root: ROOT, version: CONTROL_VERSION });
+    }
+    if (req.method === 'GET' && url.pathname === '/api/interaction/status') {
+      return json(res, 200, { enabled: preferences.interactionEnabled !== false, session: interactions.session,
+        peers: [...interactions.peers.values()].map(({ pet, x, y, size, busy, anim, seen }) => ({ pet, x, y, size, busy, anim, seen })) });
     }
     if (req.method === 'GET' && url.pathname === '/api/status') return json(res, 200, await currentStatus());
     if (req.method === 'POST') {
@@ -43,11 +68,46 @@ const server = http.createServer(async (req, res) => {
         return json(res, 415, { error: '需要 application/json' });
       }
       const data = await body(req);
+      if (url.pathname === '/api/quit') {
+        json(res, 200, { ok: true });
+        setTimeout(() => stop().catch(error => console.error(error)), 150);
+        return;
+      }
+      if (url.pathname === '/api/settings') {
+        if (!['yier', 'bubu', 'duo'].includes(data.pet) || typeof data.roam !== 'boolean') {
+          return json(res, 400, { error: '无效角色或漫游设置' });
+        }
+        const manifest = await readJSON(path.join(ROOT, 'assets-manifest.json'));
+        if (data.pinned !== null && !manifest.animations.some(row => row.pack === data.pet && row.name === data.pinned)) {
+          return json(res, 400, { error: '无效动作' });
+        }
+        return json(res, 200, await updatePreferences({ [data.pet]: { pinned: null, roam: data.roam } }));
+      }
+      if (url.pathname === '/api/interaction/setting') {
+        if (typeof data.enabled !== 'boolean') return json(res, 400, { error: '无效互动设置' });
+        await updatePreferences({ interactionEnabled: data.enabled });
+        interactions.configure(data.enabled, await selectedMode());
+        return json(res, 200, { enabled: data.enabled });
+      }
+      if (url.pathname === '/api/interaction/report') {
+        if (!validReport(data)) return json(res, 400, { error: '无效互动位置' });
+        interactions.configure(preferences.interactionEnabled !== false, await selectedMode());
+        const result = interactions.report(data);
+        if (result.session && result.session.id !== lastLoggedSession) {
+          lastLoggedSession = result.session.id;
+          console.log(`[靠近互动] ${result.session.label} (${result.session.id})`);
+        }
+        return json(res, 200, result);
+      }
       if (url.pathname === '/api/mode') {
         if (!MODES[data.mode]) return json(res, 400, { error: '模式只能是双人版或组合版' });
         if (changingMode) return json(res, 409, { error: '正在切换模式，请稍候' });
         changingMode = true;
-        try { return json(res, 200, await setMode(data.mode)); }
+        try {
+          const status = await setMode(data.mode);
+          interactions.configure(preferences.interactionEnabled !== false, data.mode);
+          return json(res, 200, status);
+        }
         finally { changingMode = false; }
       }
       if (url.pathname === '/api/anim') {

@@ -33,7 +33,7 @@
 - [gbn](https://github.com/gbn666/codex-pets-bubuyier)：`cc9ef9ce97c86b25326d468170e61fc28249bb81`
 - [skye](https://github.com/skye-luo/yier-bubu-codex-pets)：`2c924b2aa0345457cced778ee720d445f39a8be8`
 
-框架：npm dsh-pet@0.3.7，package-lock.json 固定依赖；没有修改 node_modules 内的框架代码。
+框架：npm dsh-pet@0.3.7，package-lock.json 固定依赖；角色包走原生机制；右键控制与靠近互动通过版本锁定的桌面扩展补丁接入，原文件保存在运行时的 `.yier-originals` 中。宿主与物理计算沿用上游。
 
 ## 素材许可边界
 

@@ -28,8 +28,8 @@ try {
   const at = process.argv.indexOf('--mode');
   const mode = at >= 0 ? process.argv[at + 1] : await selectedMode();
   await start(mode);
-  if (!process.argv.includes('--no-open')) await openGallery();
-  console.log('安装完成。下次运行同一个脚本即可启动；也可以在预览页切换模式。');
+  if (process.argv.includes('--review')) await openGallery();
+  console.log('安装完成。右键桌宠操作即可，下次运行同一个脚本即可启动。');
 } catch (error) {
   console.error(`\n安装/启动失败：${error.message}`);
   console.error(`日志目录：${path.join(ROOT, '.runtime')}`);

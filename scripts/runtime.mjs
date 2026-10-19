@@ -1,16 +1,18 @@
 #!/usr/bin/env node
-/** Run the unmodified dsh-pet framework with project-local configuration. */
+/** Run dsh-pet with project-local configuration and version-gated desktop extensions. */
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 import os from 'node:os';
+import { applyDesktopPatch } from './patch-desktop.mjs';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const STATE = path.join(ROOT, '.runtime');
 export const HOME = path.join(STATE, 'home');
 export const PORT = 17340;
 export const GALLERY_PORT = 17341;
+export const CONTROL_VERSION = 3;
 export const MODES = {
   pair: { label: '双人版', description: '一二、布布两个独立实例，各自活动', pets: ['yier', 'bubu'] },
   duo: { label: '组合版', description: '一个实例，播放两只同框的双人表情', pets: ['duo'] },
@@ -159,13 +161,40 @@ export async function start(mode) {
   await fs.mkdir(STATE, { recursive: true });
   const cli = path.join(FRAMEWORK_ROOT, 'lib', 'standalone.js');
   if (!(await exists(cli))) throw Error('请先运行 node scripts/install.mjs 安装依赖');
+  await applyDesktopPatch();
+  const oldControl = await galleryHealth();
+  if (oldControl && oldControl.version !== CONTROL_VERSION) {
+    // Old hosts lack the narrow desktop-menu bridge environment; restart them once.
+    if (await ownedHealth()) await request('/shutdown', 'POST');
+    for (let i = 0; i < 50; i++) {
+      try { if (!(await ownedHealth())) break; }
+      catch (error) {
+        if (!error.message.includes('fetch failed')) throw error;
+      }
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    const pid = Number(await fs.readFile(path.join(STATE, 'gallery.pid'), 'utf8'));
+    if (Number.isSafeInteger(pid) && pid > 0) process.kill(pid, 'SIGTERM');
+    for (let i = 0; i < 30; i++) {
+      try { if (!(await galleryHealth())) break; }
+      catch (error) {
+        if (error.message !== 'fetch failed') throw error;
+      }
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  }
+  if (!(await galleryHealth())) await detached([path.join(ROOT, 'scripts', 'gallery_server.mjs')], 'gallery');
+  for (let i = 0; i < 30; i++) {
+    if (await galleryHealth()) break;
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
   if (await ownedHealth()) {
     await setMode(mode);
   } else {
     const electron = await ensureElectron();
     await prepare(mode);
     await detached([cli, '--port', String(PORT)], 'pet',
-      { ...process.env, DSH_HOME: HOME, DSH_PET_ELECTRON_PATH: electron });
+      { ...process.env, DSH_HOME: HOME, DSH_PET_ELECTRON_PATH: electron, YIER_BUBU_STATE_DIR: STATE });
     let ready = false;
     for (let i = 0; i < 60; i++) {
       if (await ownedHealth()) { ready = true; break; }
@@ -174,14 +203,9 @@ export async function start(mode) {
     if (!ready) throw Error(`启动失败，请查看 ${path.join(STATE, 'pet.log')}`);
     await fs.writeFile(path.join(STATE, 'mode'), mode);
   }
-  if (!(await galleryHealth())) await detached([path.join(ROOT, 'scripts', 'gallery_server.mjs')], 'gallery');
-  for (let i = 0; i < 30; i++) {
-    if (await galleryHealth()) break;
-    await new Promise(resolve => setTimeout(resolve, 100));
-  }
   const status = await currentStatus();
   console.log(`${status.label}已启动：${status.description}（${status.instanceCount} 个实例）`);
-  console.log(`预览与切换模式：http://127.0.0.1:${GALLERY_PORT}/review/`);
+  console.log('右键桌宠可切换模式、点播动作、开关靠近互动或退出。');
   return status;
 }
 

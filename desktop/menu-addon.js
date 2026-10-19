@@ -1,0 +1,65 @@
+'use strict';
+(function () {
+  const bridge = window.yierMenuBridge;
+  function initialize(sprite) {
+    if (sprite._yierMenuReady) return;
+    const pref = bridge.state().settings[sprite.pet.id] || {};
+    sprite._yierPinned = null; // Original one-shot menu semantics; ignore older pinned settings.
+    sprite._yierRoam = pref.roam !== false;
+    sprite.pet.fixedEnabled = !sprite._yierRoam;
+    sprite._yierMenuReady = true;
+  }
+  function fail(sprite, error) {
+    console.error('[一二布布菜单]', error);
+    if (typeof sprite.showWhisper === 'function') {
+      sprite.showWhisper('操作失败：' + error.message);
+    }
+  }
+  function save(sprite) {
+    return bridge.saveSettings(sprite.pet.id, { pinned: sprite._yierPinned, roam: sprite._yierRoam })
+      .catch(error => fail(sprite, error));
+  }
+  window.YierMenu = {
+    decorate(root) {
+      for (const item of root.querySelectorAll('.dsh-pet-menu-item')) {
+        item.setAttribute('role', 'menuitem');
+        item.setAttribute('aria-label', item.firstElementChild.textContent.trim());
+        if (item.classList.contains('dsh-pet-menu-branch')) {
+          item.setAttribute('aria-haspopup', 'menu');
+          item.addEventListener('click', () => item.dispatchEvent(new MouseEvent('mouseenter')));
+        }
+      }
+    },
+    build(sprite, actionTree) {
+      initialize(sprite);
+      return window.YierMenuModel.build({ mode: bridge.state().mode, pinned: sprite._yierPinned,
+        interactionEnabled: bridge.state().settings.interactionEnabled !== false, anim: sprite.anim, roam: sprite._yierRoam, animations: sprite.animations, actionTree });
+    },
+    handle(sprite, leaf) {
+      initialize(sprite);
+      if (leaf.anim) {
+        sprite.stopMove(); // A new movement selection must not be swallowed by an old move.
+        return false; // Upstream plays the chosen clip once, then resumes its normal state machine.
+      }
+      if (leaf.action?.startsWith('yier-mode-')) {
+        bridge.setMode(leaf.action.slice('yier-mode-'.length)).catch(error => fail(sprite, error));
+      } else if (leaf.action === 'yier-interaction') {
+        const enabled = bridge.state().settings.interactionEnabled === false;
+        bridge.setInteraction(enabled).catch(error => fail(sprite, error));
+      } else if (leaf.action === 'yier-roam') {
+        sprite._yierRoam = !sprite._yierRoam;
+        sprite.pet.fixedEnabled = !sprite._yierRoam;
+        if (!sprite._yierRoam) sprite.stopMove();
+        save(sprite);
+      } else if (leaf.action === 'yier-quit') {
+        bridge.quit().catch(error => fail(sprite, error));
+      } else return false;
+      return true;
+    },
+  };
+  const originalIdle = PetSprite.prototype.playIdle;
+  PetSprite.prototype.playIdle = function () {
+    initialize(this);
+    return originalIdle.call(this);
+  };
+})();
