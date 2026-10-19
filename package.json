@@ -1,0 +1,20 @@
+{
+  "name": "yier-bubu-dsh-pet",
+  "version": "0.1.0",
+  "private": true,
+  "description": "一二布布桌宠：基于 dsh-pet 的双人版与组合版，一键安装、网页切换",
+  "dependencies": {
+    "dsh-pet": "0.3.7"
+  },
+  "scripts": {
+    "start": "node scripts/install.mjs",
+    "stop": "node scripts/runtime.mjs stop",
+    "status": "node scripts/runtime.mjs status",
+    "build:assets": "python3 scripts/build_assets.py",
+    "start:pair": "node scripts/install.mjs --mode pair",
+    "start:duo": "node scripts/install.mjs --mode duo"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

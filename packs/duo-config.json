@@ -1,0 +1,109 @@
+{
+  "notificationsEnabled": false,
+  "pets": [
+    {
+      "id": "duo",
+      "name": "一二布布",
+      "size": 490,
+      "balanceEnabled": false,
+      "whisperEnabled": false,
+      "workStatusEnabled": false,
+      "fixedEnabled": false,
+      "display": "both",
+      "position": {
+        "corner": "bottom-left",
+        "marginX": 760,
+        "marginY": 35
+      }
+    }
+  ],
+  "animations": {
+    "idle": [
+      "面对面",
+      "抱抱"
+    ],
+    "turn": [
+      "面对面"
+    ],
+    "drag": [
+      "背着一二"
+    ],
+    "clicks": [
+      "抱抱",
+      "亲亲",
+      "背后抱"
+    ],
+    "moves": {
+      "default": {
+        "minDist": 65,
+        "maxDist": 210,
+        "margin": 20,
+        "leadSec": 0.3,
+        "tailSec": 0.3
+      },
+      "actions": [
+        {
+          "name": "一起骑车"
+        }
+      ]
+    },
+    "categories": [
+      {
+        "id": "吃饭休息",
+        "weight": 12,
+        "actions": [
+          "一起躺着玩手机"
+        ]
+      },
+      {
+        "id": "开心贴贴",
+        "weight": 12,
+        "actions": [
+          "抱抱",
+          "骑头比心",
+          "背着一二",
+          "亲亲",
+          "一起自拍",
+          "叠罗汉",
+          "一起骑车",
+          "背后抱"
+        ]
+      },
+      {
+        "id": "日常小动作",
+        "weight": 12,
+        "actions": [
+          "面对面",
+          "一起拎篮子"
+        ]
+      }
+    ],
+    "events": {
+      "balance": [
+        "面对面",
+        "面对面",
+        "面对面",
+        "面对面",
+        "面对面",
+        "面对面"
+      ],
+      "workStatus": [
+        "面对面",
+        "面对面",
+        "面对面",
+        "面对面",
+        "抱抱",
+        "背着一二"
+      ]
+    }
+  },
+  "animationWeights": {
+    "idle": 30,
+    "turn": 3,
+    "move": 10
+  },
+  "eventsRefreshSec": {
+    "balance": 1800,
+    "whisper": 300
+  }
+}

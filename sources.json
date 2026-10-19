@@ -1,0 +1,17 @@
+[
+  {
+    "name": "YierPet",
+    "repository": "https://github.com/xiaojieshi-bot/YierPet",
+    "commit": "d7cfa5848c8f80701bec2ff8f8b6f451bc7f5236"
+  },
+  {
+    "name": "gbn",
+    "repository": "https://github.com/gbn666/codex-pets-bubuyier",
+    "commit": "cc9ef9ce97c86b25326d468170e61fc28249bb81"
+  },
+  {
+    "name": "skye",
+    "repository": "https://github.com/skye-luo/yier-bubu-codex-pets",
+    "commit": "2c924b2aa0345457cced778ee720d445f39a8be8"
+  }
+]

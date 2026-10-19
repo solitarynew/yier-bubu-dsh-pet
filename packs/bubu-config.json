@@ -1,0 +1,125 @@
+{
+  "notificationsEnabled": false,
+  "pets": [
+    {
+      "id": "bubu",
+      "name": "布布",
+      "size": 490,
+      "balanceEnabled": false,
+      "whisperEnabled": false,
+      "workStatusEnabled": false,
+      "fixedEnabled": false,
+      "display": "both",
+      "position": {
+        "corner": "bottom-left",
+        "marginX": 390,
+        "marginY": 35
+      }
+    }
+  ],
+  "animations": {
+    "idle": [
+      "坐着发呆",
+      "摇摇晃晃"
+    ],
+    "turn": [
+      "坐着发呆"
+    ],
+    "drag": [
+      "委屈巴巴",
+      "擦汗"
+    ],
+    "clicks": [
+      "撒花",
+      "看一二照片"
+    ],
+    "moves": {
+      "default": {
+        "minDist": 65,
+        "maxDist": 210,
+        "margin": 20,
+        "leadSec": 0.3,
+        "tailSec": 0.3
+      },
+      "actions": [
+        {
+          "name": "玩具车"
+        }
+      ]
+    },
+    "categories": [
+      {
+        "id": "吃饭休息",
+        "weight": 12,
+        "actions": [
+          "擦汗",
+          "吃零食",
+          "伸懒腰",
+          "好累呀",
+          "收拾行李",
+          "躺着玩手机",
+          "看一二照片"
+        ]
+      },
+      {
+        "id": "开心贴贴",
+        "weight": 12,
+        "actions": [
+          "撒花"
+        ]
+      },
+      {
+        "id": "认真干活",
+        "weight": 12,
+        "actions": [
+          "跳绳",
+          "喝咖啡打电脑"
+        ]
+      },
+      {
+        "id": "小情绪",
+        "weight": 4,
+        "actions": [
+          "玩具车",
+          "委屈巴巴",
+          "大哭"
+        ]
+      },
+      {
+        "id": "日常小动作",
+        "weight": 12,
+        "actions": [
+          "坐着发呆",
+          "摇摇晃晃"
+        ]
+      }
+    ],
+    "events": {
+      "balance": [
+        "坐着发呆",
+        "坐着发呆",
+        "坐着发呆",
+        "坐着发呆",
+        "坐着发呆",
+        "坐着发呆"
+      ],
+      "workStatus": [
+        "坐着发呆",
+        "喝咖啡打电脑",
+        "喝咖啡打电脑",
+        "坐着发呆",
+        "撒花",
+        "委屈巴巴"
+      ]
+    }
+  },
+  "animationWeights": {
+    "idle": 30,
+    "turn": 3,
+    "move": 10
+  },
+  "eventsRefreshSec": {
+    "balance": 1800,
+    "whisper": 300
+  }
+}

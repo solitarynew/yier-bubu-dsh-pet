@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>一二布布 · 模式与动作</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>一二布布 · 动作小屋</h1>
+  <p class="intro">49 组透明动画，使用 dsh-pet 的拖拽、漫游和动作菜单。</p>
+  <section class="mode-panel" aria-labelledby="mode-title">
+    <h2 id="mode-title">启动模式</h2>
+    <div class="mode-options" role="group" aria-label="启动模式">
+      <button class="mode-button" data-mode="pair" aria-pressed="false" onclick="switchMode('pair')">
+        <strong>双人版</strong><span>2 个独立实例</span><small>一二和布布各自活动</small>
+      </button>
+      <button class="mode-button" data-mode="duo" aria-pressed="false" onclick="switchMode('duo')">
+        <strong>组合版</strong><span>1 个同框实例</span><small>播放抱抱、亲亲等双人表情</small>
+      </button>
+    </div>
+    <p id="mode-status" role="status" aria-live="polite">正在读取当前模式……</p>
+  </section>
+  <nav aria-label="素材筛选">
+    <button class="active" data-filter="all" onclick="filter('all',this)">全部 49</button>
+    <button data-filter="yier" onclick="filter('yier',this)">一二 23</button>
+    <button data-filter="bubu" onclick="filter('bubu',this)">布布 15</button>
+    <button data-filter="duo" onclick="filter('duo',this)">双人表情 11</button>
+    <button onclick="toggleBackground()" id="background-button" aria-pressed="false">深色底检查</button>
+  </nav>
+  <p id="status" role="status" aria-live="polite">素材可随时预览；点播只对当前模式已显示的角色生效。</p>
+</header>
+<main><article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s01_shengqi.png" src="../packs/yier-animation/气鼓鼓.webm"></video>
+          <h3>一二 · 气鼓鼓</h3>
+          <small>21 帧 · 8 fps · 源动作 s01_shengqi</small>
+          <button onclick="playPet('yier','气鼓鼓')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s02_tiaowu.png" src="../packs/yier-animation/围巾舞.webm"></video>
+          <h3>一二 · 围巾舞</h3>
+          <small>27 帧 · 8 fps · 源动作 s02_tiaowu</small>
+          <button onclick="playPet('yier','围巾舞')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s04_xianyu.png" src="../packs/yier-animation/咸鱼躺平.webm"></video>
+          <h3>一二 · 咸鱼躺平</h3>
+          <small>31 帧 · 8 fps · 源动作 s04_xianyu</small>
+          <button onclick="playPet('yier','咸鱼躺平')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s07_chifan.png" src="../packs/yier-animation/吃饭团.webm"></video>
+          <h3>一二 · 吃饭团</h3>
+          <small>20 帧 · 8 fps · 源动作 s07_chifan</small>
+          <button onclick="playPet('yier','吃饭团')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s08_baozhentou.png" src="../packs/yier-animation/抱枕头.webm"></video>
+          <h3>一二 · 抱枕头</h3>
+          <small>20 帧 · 8 fps · 源动作 s08_baozhentou</small>
+          <button onclick="playPet('yier','抱枕头')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s09_zuozhe.png" src="../packs/yier-animation/坐着发呆.webm"></video>
+          <h3>一二 · 坐着发呆</h3>
+          <small>14 帧 · 8 fps · 源动作 s09_zuozhe</small>
+          <button onclick="playPet('yier','坐着发呆')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s11_tiaosheng.png" src="../packs/yier-animation/跳绳.webm"></video>
+          <h3>一二 · 跳绳</h3>
+          <small>16 帧 · 8 fps · 源动作 s11_tiaosheng</small>
+          <button onclick="playPet('yier','跳绳')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s14_fadai.png" src="../packs/yier-animation/歪头发呆.webm"></video>
+          <h3>一二 · 歪头发呆</h3>
+          <small>30 帧 · 8 fps · 源动作 s14_fadai</small>
+          <button onclick="playPet('yier','歪头发呆')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s15_kaodian.png" src="../packs/yier-animation/靠垫休息.webm"></video>
+          <h3>一二 · 靠垫休息</h3>
+          <small>41 帧 · 8 fps · 源动作 s15_kaodian</small>
+          <button onclick="playPet('yier','靠垫休息')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s16_qima.png" src="../packs/yier-animation/骑木马.webm"></video>
+          <h3>一二 · 骑木马</h3>
+          <small>23 帧 · 8 fps · 源动作 s16_qima</small>
+          <button onclick="playPet('yier','骑木马')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s17_qiche.png" src="../packs/yier-animation/骑小车.webm"></video>
+          <h3>一二 · 骑小车</h3>
+          <small>16 帧 · 8 fps · 源动作 s17_qiche</small>
+          <button onclick="playPet('yier','骑小车')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s19_haolei.png" src="../packs/yier-animation/好累呀.webm"></video>
+          <h3>一二 · 好累呀</h3>
+          <small>18 帧 · 8 fps · 源动作 s19_haolei</small>
+          <button onclick="playPet('yier','好累呀')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s21_xingli.png" src="../packs/yier-animation/收拾行李.webm"></video>
+          <h3>一二 · 收拾行李</h3>
+          <small>19 帧 · 8 fps · 源动作 s21_xingli</small>
+          <button onclick="playPet('yier','收拾行李')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s23_shengqi2.png" src="../packs/yier-animation/叉腰生气.webm"></video>
+          <h3>一二 · 叉腰生气</h3>
+          <small>2 帧 · 8 fps · 源动作 s23_shengqi2</small>
+          <button onclick="playPet('yier','叉腰生气')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s24_wanjuche.png" src="../packs/yier-animation/玩具车.webm"></video>
+          <h3>一二 · 玩具车</h3>
+          <small>19 帧 · 8 fps · 源动作 s24_wanjuche</small>
+          <button onclick="playPet('yier','玩具车')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s26_wanshouji.png" src="../packs/yier-animation/躺着玩手机.webm"></video>
+          <h3>一二 · 躺着玩手机</h3>
+          <small>13 帧 · 8 fps · 源动作 s26_wanshouji</small>
+          <button onclick="playPet('yier','躺着玩手机')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s28_fenpu2.png" src="../packs/yier-animation/扑粉打扮.webm"></video>
+          <h3>一二 · 扑粉打扮</h3>
+          <small>17 帧 · 8 fps · 源动作 s28_fenpu2</small>
+          <button onclick="playPet('yier','扑粉打扮')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s44_maohuo.png" src="../packs/yier-animation/头顶冒火.webm"></video>
+          <h3>一二 · 头顶冒火</h3>
+          <small>21 帧 · 8 fps · 源动作 s44_maohuo</small>
+          <button onclick="playPet('yier','头顶冒火')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s45_baonu.png" src="../packs/yier-animation/气到跺脚.webm"></video>
+          <h3>一二 · 气到跺脚</h3>
+          <small>14 帧 · 8 fps · 源动作 s45_baonu</small>
+          <button onclick="playPet('yier','气到跺脚')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s46_zhaohuo.png" src="../packs/yier-animation/红温着火.webm"></video>
+          <h3>一二 · 红温着火</h3>
+          <small>18 帧 · 8 fps · 源动作 s46_zhaohuo</small>
+          <button onclick="playPet('yier','红温着火')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s47_bixin.png" src="../packs/yier-animation/比心.webm"></video>
+          <h3>一二 · 比心</h3>
+          <small>28 帧 · 8 fps · 源动作 s47_bixin</small>
+          <button onclick="playPet('yier','比心')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s50_dadianna.png" src="../packs/yier-animation/打电脑.webm"></video>
+          <h3>一二 · 打电脑</h3>
+          <small>18 帧 · 8 fps · 源动作 s50_dadianna</small>
+          <button onclick="playPet('yier','打电脑')">让桌宠做这个动作</button></article>
+<article data-pack="yier"><video muted loop playsinline controls
+          preload="none" poster="posters/yier/s51_aoaoku.png" src="../packs/yier-animation/嗷嗷哭.webm"></video>
+          <h3>一二 · 嗷嗷哭</h3>
+          <small>24 帧 · 8 fps · 源动作 s51_aoaoku</small>
+          <button onclick="playPet('yier','嗷嗷哭')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s03_liuhan.png" src="../packs/bubu-animation/擦汗.webm"></video>
+          <h3>布布 · 擦汗</h3>
+          <small>23 帧 · 8 fps · 源动作 s03_liuhan</small>
+          <button onclick="playPet('bubu','擦汗')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s05_chilingshi.png" src="../packs/bubu-animation/吃零食.webm"></video>
+          <h3>布布 · 吃零食</h3>
+          <small>21 帧 · 8 fps · 源动作 s05_chilingshi</small>
+          <button onclick="playPet('bubu','吃零食')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s06_shenlanyao.png" src="../packs/bubu-animation/伸懒腰.webm"></video>
+          <h3>布布 · 伸懒腰</h3>
+          <small>22 帧 · 8 fps · 源动作 s06_shenlanyao</small>
+          <button onclick="playPet('bubu','伸懒腰')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s10_zuozhe.png" src="../packs/bubu-animation/坐着发呆.webm"></video>
+          <h3>布布 · 坐着发呆</h3>
+          <small>15 帧 · 8 fps · 源动作 s10_zuozhe</small>
+          <button onclick="playPet('bubu','坐着发呆')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s12_tiaosheng.png" src="../packs/bubu-animation/跳绳.webm"></video>
+          <h3>布布 · 跳绳</h3>
+          <small>17 帧 · 8 fps · 源动作 s12_tiaosheng</small>
+          <button onclick="playPet('bubu','跳绳')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s20_haolei.png" src="../packs/bubu-animation/好累呀.webm"></video>
+          <h3>布布 · 好累呀</h3>
+          <small>18 帧 · 8 fps · 源动作 s20_haolei</small>
+          <button onclick="playPet('bubu','好累呀')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s22_xingli.png" src="../packs/bubu-animation/收拾行李.webm"></video>
+          <h3>布布 · 收拾行李</h3>
+          <small>17 帧 · 8 fps · 源动作 s22_xingli</small>
+          <button onclick="playPet('bubu','收拾行李')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s25_wanjuche.png" src="../packs/bubu-animation/玩具车.webm"></video>
+          <h3>布布 · 玩具车</h3>
+          <small>19 帧 · 8 fps · 源动作 s25_wanjuche</small>
+          <button onclick="playPet('bubu','玩具车')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s27_wanshouji.png" src="../packs/bubu-animation/躺着玩手机.webm"></video>
+          <h3>布布 · 躺着玩手机</h3>
+          <small>13 帧 · 8 fps · 源动作 s27_wanshouji</small>
+          <button onclick="playPet('bubu','躺着玩手机')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s29_weiqu.png" src="../packs/bubu-animation/委屈巴巴.webm"></video>
+          <h3>布布 · 委屈巴巴</h3>
+          <small>16 帧 · 8 fps · 源动作 s29_weiqu</small>
+          <button onclick="playPet('bubu','委屈巴巴')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s42_sahua.png" src="../packs/bubu-animation/撒花.webm"></video>
+          <h3>布布 · 撒花</h3>
+          <small>31 帧 · 8 fps · 源动作 s42_sahua</small>
+          <button onclick="playPet('bubu','撒花')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s43_daku.png" src="../packs/bubu-animation/大哭.webm"></video>
+          <h3>布布 · 大哭</h3>
+          <small>26 帧 · 8 fps · 源动作 s43_daku</small>
+          <button onclick="playPet('bubu','大哭')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s49_hekafei.png" src="../packs/bubu-animation/喝咖啡打电脑.webm"></video>
+          <h3>布布 · 喝咖啡打电脑</h3>
+          <small>18 帧 · 8 fps · 源动作 s49_hekafei</small>
+          <button onclick="playPet('bubu','喝咖啡打电脑')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s52_zhanli.png" src="../packs/bubu-animation/摇摇晃晃.webm"></video>
+          <h3>布布 · 摇摇晃晃</h3>
+          <small>19 帧 · 8 fps · 源动作 s52_zhanli</small>
+          <button onclick="playPet('bubu','摇摇晃晃')">让桌宠做这个动作</button></article>
+<article data-pack="bubu"><video muted loop playsinline controls
+          preload="none" poster="posters/bubu/s53_shouji.png" src="../packs/bubu-animation/看一二照片.webm"></video>
+          <h3>布布 · 看一二照片</h3>
+          <small>27 帧 · 8 fps · 源动作 s53_shouji</small>
+          <button onclick="playPet('bubu','看一二照片')">让桌宠做这个动作</button></article>
+<article data-pack="duo"><video muted loop playsinline controls
+          preload="none" poster="posters/duo/s13_baobao.png" src="../packs/duo-animation/抱抱.webm"></video>
+          <h3>一二布布 · 抱抱</h3>
+          <small>10 帧 · 8 fps · 源动作 s13_baobao</small>
+          <button onclick="playPet('duo','抱抱')">让桌宠做这个动作</button></article>
+<article data-pack="duo"><video muted loop playsinline controls
+          preload="none" poster="posters/duo/s30_qitou-bixin.png" src="../packs/duo-animation/骑头比心.webm"></video>
+          <h3>一二布布 · 骑头比心</h3>
+          <small>9 帧 · 8 fps · 源动作 s30_qitou-bixin</small>
+          <button onclick="playPet('duo','骑头比心')">让桌宠做这个动作</button></article>
+<article data-pack="duo"><video muted loop playsinline controls
+          preload="none" poster="posters/duo/s32_qibei.png" src="../packs/duo-animation/背着一二.webm"></video>
+          <h3>一二布布 · 背着一二</h3>
+          <small>17 帧 · 8 fps · 源动作 s32_qibei</small>
+          <button onclick="playPet('duo','背着一二')">让桌宠做这个动作</button></article>
+<article data-pack="duo"><video muted loop playsinline controls
+          preload="none" poster="posters/duo/s34_qinqin.png" src="../packs/duo-animation/亲亲.webm"></video>
+          <h3>一二布布 · 亲亲</h3>
+          <small>8 帧 · 8 fps · 源动作 s34_qinqin</small>
+          <button onclick="playPet('duo','亲亲')">让桌宠做这个动作</button></article>
+<article data-pack="duo"><video muted loop playsinline controls
+          preload="none" poster="posters/duo/s36_zipai.png" src="../packs/duo-animation/一起自拍.webm"></video>
+          <h3>一二布布 · 一起自拍</h3>
+          <small>9 帧 · 8 fps · 源动作 s36_zipai</small>
+          <button onclick="playPet('duo','一起自拍')">让桌宠做这个动作</button></article>
+<article data-pack="duo"><video muted loop playsinline controls
+          preload="none" poster="posters/duo/s37_dieluohan.png" src="../packs/duo-animation/叠罗汉.webm"></video>
+          <h3>一二布布 · 叠罗汉</h3>
+          <small>8 帧 · 8 fps · 源动作 s37_dieluohan</small>
+          <button onclick="playPet('duo','叠罗汉')">让桌宠做这个动作</button></article>
+<article data-pack="duo"><video muted loop playsinline controls
+          preload="none" poster="posters/duo/s38_diandongche.png" src="../packs/duo-animation/一起骑车.webm"></video>
+          <h3>一二布布 · 一起骑车</h3>
+          <small>9 帧 · 8 fps · 源动作 s38_diandongche</small>
+          <button onclick="playPet('duo','一起骑车')">让桌宠做这个动作</button></article>
+<article data-pack="duo"><video muted loop playsinline controls
+          preload="none" poster="posters/duo/s39_tangzhe-shuaji.png" src="../packs/duo-animation/一起躺着玩手机.webm"></video>
+          <h3>一二布布 · 一起躺着玩手机</h3>
+          <small>20 帧 · 8 fps · 源动作 s39_tangzhe-shuaji</small>
+          <button onclick="playPet('duo','一起躺着玩手机')">让桌宠做这个动作</button></article>
+<article data-pack="duo"><video muted loop playsinline controls
+          preload="none" poster="posters/duo/s40_mianduimian.png" src="../packs/duo-animation/面对面.webm"></video>
+          <h3>一二布布 · 面对面</h3>
+          <small>12 帧 · 8 fps · 源动作 s40_mianduimian</small>
+          <button onclick="playPet('duo','面对面')">让桌宠做这个动作</button></article>
+<article data-pack="duo"><video muted loop playsinline controls
+          preload="none" poster="posters/duo/s48_beihoubao.png" src="../packs/duo-animation/背后抱.webm"></video>
+          <h3>一二布布 · 背后抱</h3>
+          <small>16 帧 · 8 fps · 源动作 s48_beihoubao</small>
+          <button onclick="playPet('duo','背后抱')">让桌宠做这个动作</button></article>
+<article data-pack="duo"><video muted loop playsinline controls
+          preload="none" poster="posters/duo/s55_linlanzi.png" src="../packs/duo-animation/一起拎篮子.webm"></video>
+          <h3>一二布布 · 一起拎篮子</h3>
+          <small>18 帧 · 8 fps · 源动作 s55_linlanzi</small>
+          <button onclick="playPet('duo','一起拎篮子')">让桌宠做这个动作</button></article></main>
+<footer>运行框架：<a href="https://github.com/PC2005-cloud/dsh-pet">dsh-pet</a> ·
+  角色素材：<a href="https://github.com/xiaojieshi-bot/YierPet">YierPet</a> · 非官方粉丝项目</footer>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+node_modules/
+.runtime/
+__pycache__/
+.DS_Store
+dist/
+sources/
+review/UI_VERIFICATION.md
+review/verification.json
+review/gallery-running.png
+review/desktop-*.png

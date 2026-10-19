@@ -1,0 +1,140 @@
+{
+  "notificationsEnabled": false,
+  "pets": [
+    {
+      "id": "yier",
+      "name": "一二",
+      "size": 490,
+      "balanceEnabled": false,
+      "whisperEnabled": false,
+      "workStatusEnabled": false,
+      "fixedEnabled": false,
+      "display": "both",
+      "position": {
+        "corner": "bottom-left",
+        "marginX": 20,
+        "marginY": 35
+      }
+    }
+  ],
+  "animations": {
+    "idle": [
+      "坐着发呆",
+      "歪头发呆"
+    ],
+    "turn": [
+      "坐着发呆"
+    ],
+    "drag": [
+      "叉腰生气",
+      "气鼓鼓"
+    ],
+    "clicks": [
+      "比心",
+      "围巾舞",
+      "抱枕头"
+    ],
+    "moves": {
+      "default": {
+        "minDist": 65,
+        "maxDist": 210,
+        "margin": 20,
+        "leadSec": 0.3,
+        "tailSec": 0.3
+      },
+      "actions": [
+        {
+          "name": "骑小车"
+        },
+        {
+          "name": "骑木马"
+        },
+        {
+          "name": "玩具车"
+        }
+      ]
+    },
+    "categories": [
+      {
+        "id": "吃饭休息",
+        "weight": 12,
+        "actions": [
+          "咸鱼躺平",
+          "吃饭团",
+          "抱枕头",
+          "靠垫休息",
+          "好累呀",
+          "收拾行李",
+          "躺着玩手机"
+        ]
+      },
+      {
+        "id": "开心贴贴",
+        "weight": 12,
+        "actions": [
+          "围巾舞",
+          "骑木马",
+          "骑小车",
+          "比心"
+        ]
+      },
+      {
+        "id": "认真干活",
+        "weight": 12,
+        "actions": [
+          "跳绳",
+          "打电脑"
+        ]
+      },
+      {
+        "id": "小情绪",
+        "weight": 4,
+        "actions": [
+          "气鼓鼓",
+          "叉腰生气",
+          "玩具车",
+          "头顶冒火",
+          "气到跺脚",
+          "红温着火",
+          "嗷嗷哭"
+        ]
+      },
+      {
+        "id": "日常小动作",
+        "weight": 12,
+        "actions": [
+          "坐着发呆",
+          "歪头发呆",
+          "扑粉打扮"
+        ]
+      }
+    ],
+    "events": {
+      "balance": [
+        "坐着发呆",
+        "坐着发呆",
+        "坐着发呆",
+        "坐着发呆",
+        "坐着发呆",
+        "坐着发呆"
+      ],
+      "workStatus": [
+        "坐着发呆",
+        "打电脑",
+        "打电脑",
+        "坐着发呆",
+        "比心",
+        "叉腰生气"
+      ]
+    }
+  },
+  "animationWeights": {
+    "idle": 30,
+    "turn": 3,
+    "move": 10
+  },
+  "eventsRefreshSec": {
+    "balance": 1800,
+    "whisper": 300
+  }
+}

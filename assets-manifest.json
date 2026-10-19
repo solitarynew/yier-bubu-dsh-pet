@@ -1,0 +1,1038 @@
+{
+  "source": "sources.json",
+  "excluded": {
+    "s18_huabanche": "素材含整条街道路面，作为透明桌宠出现矩形场景。"
+  },
+  "animations": [
+    {
+      "pack": "yier",
+      "sourceId": "s01_shengqi",
+      "name": "气鼓鼓",
+      "tags": [
+        "angry"
+      ],
+      "sourceFrames": 21,
+      "fps": 8,
+      "loops": 2,
+      "duration": 5.25,
+      "crop": [
+        86,
+        200,
+        249,
+        362
+      ],
+      "scale": 1.4478527607361964,
+      "file": "packs/yier-animation/气鼓鼓.webm",
+      "sha256": "02d8389bc8a39b0b30556021d094a2ec0ac2c574419eb958719aaaf4065810f7"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s02_tiaowu",
+      "name": "围巾舞",
+      "tags": [
+        "happy"
+      ],
+      "sourceFrames": 27,
+      "fps": 8,
+      "loops": 1,
+      "duration": 3.375,
+      "crop": [
+        97,
+        200,
+        239,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/yier-animation/围巾舞.webm",
+      "sha256": "aade29eeb11a8f294603c74354a908ccd47e6e154317aff1d76c9ca765b68bd9"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s04_xianyu",
+      "name": "咸鱼躺平",
+      "tags": [
+        "lazy"
+      ],
+      "sourceFrames": 31,
+      "fps": 8,
+      "loops": 1,
+      "duration": 3.875,
+      "crop": [
+        95,
+        200,
+        240,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/yier-animation/咸鱼躺平.webm",
+      "sha256": "9a288167cc5d9948f911ca408fe01420452189859a72cee51be249751a9419b4"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s07_chifan",
+      "name": "吃饭团",
+      "tags": [
+        "eat"
+      ],
+      "sourceFrames": 20,
+      "fps": 8,
+      "loops": 2,
+      "duration": 5.0,
+      "crop": [
+        89,
+        200,
+        247,
+        362
+      ],
+      "scale": 1.4936708860759493,
+      "file": "packs/yier-animation/吃饭团.webm",
+      "sha256": "32c7338d90d506999588b5b8b67d6e195ebc610063298347f110d0ef498f2508"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s08_baozhentou",
+      "name": "抱枕头",
+      "tags": [
+        "sleep"
+      ],
+      "sourceFrames": 20,
+      "fps": 8,
+      "loops": 2,
+      "duration": 5.0,
+      "crop": [
+        114,
+        200,
+        221,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/yier-animation/抱枕头.webm",
+      "sha256": "345c77b9a58d6f738083cba4f94686d7dadcd88160a0d85b5696f075bd454968"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s09_zuozhe",
+      "name": "坐着发呆",
+      "tags": [
+        "idle"
+      ],
+      "sourceFrames": 14,
+      "fps": 8,
+      "loops": 3,
+      "duration": 5.25,
+      "crop": [
+        95,
+        200,
+        240,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/yier-animation/坐着发呆.webm",
+      "sha256": "2b38d28b1f48b43c0e7aceb047bace44d09b8139ae1161e25983bcd9f5e01d2c"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s11_tiaosheng",
+      "name": "跳绳",
+      "tags": [
+        "exercise"
+      ],
+      "sourceFrames": 16,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.0,
+      "crop": [
+        95,
+        200,
+        240,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/yier-animation/跳绳.webm",
+      "sha256": "e26fbbb470bec0eba9947db2ef45a75053e439456f1982d9a7aaa68378ff71f0"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s14_fadai",
+      "name": "歪头发呆",
+      "tags": [
+        "idle"
+      ],
+      "sourceFrames": 30,
+      "fps": 8,
+      "loops": 1,
+      "duration": 3.75,
+      "crop": [
+        92,
+        200,
+        244,
+        362
+      ],
+      "scale": 1.5526315789473684,
+      "file": "packs/yier-animation/歪头发呆.webm",
+      "sha256": "0c5be4d5aa6a7a8faa83c4f3b23599d95278a3b70230412f45d29dd389ca36d3"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s15_kaodian",
+      "name": "靠垫休息",
+      "tags": [
+        "lazy"
+      ],
+      "sourceFrames": 41,
+      "fps": 8,
+      "loops": 1,
+      "duration": 5.125,
+      "crop": [
+        102,
+        200,
+        234,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/yier-animation/靠垫休息.webm",
+      "sha256": "dccdcad0880b71086840e25b596930dd6f4eda4f2479b000ebbfbb90cf3c0a1a"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s16_qima",
+      "name": "骑木马",
+      "tags": [
+        "happy"
+      ],
+      "sourceFrames": 23,
+      "fps": 8,
+      "loops": 2,
+      "duration": 5.75,
+      "crop": [
+        97,
+        200,
+        238,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/yier-animation/骑木马.webm",
+      "sha256": "435290f6d46d53ceb64293e880462c7dc1071a1cb4c1619e6fde976542283aeb"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s17_qiche",
+      "name": "骑小车",
+      "tags": [
+        "happy"
+      ],
+      "sourceFrames": 16,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.0,
+      "crop": [
+        84,
+        200,
+        251,
+        362
+      ],
+      "scale": 1.4131736526946108,
+      "file": "packs/yier-animation/骑小车.webm",
+      "sha256": "990fc09d86c925e2f4d9691ad4be901509baee65fb2be2a817fe25e682323d5b"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s19_haolei",
+      "name": "好累呀",
+      "tags": [
+        "tired"
+      ],
+      "sourceFrames": 18,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.5,
+      "crop": [
+        63,
+        200,
+        272,
+        362
+      ],
+      "scale": 1.1291866028708133,
+      "file": "packs/yier-animation/好累呀.webm",
+      "sha256": "156003d70a83219e55fb485a3b12b10b5bb87d3010308d031373d879960583f9"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s21_xingli",
+      "name": "收拾行李",
+      "tags": [
+        "tired"
+      ],
+      "sourceFrames": 19,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.75,
+      "crop": [
+        88,
+        200,
+        248,
+        362
+      ],
+      "scale": 1.475,
+      "file": "packs/yier-animation/收拾行李.webm",
+      "sha256": "4b2950566eba2b934b9e926bfd6acc029b6bcfe9ffe321a40cb1a9513434dff9"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s23_shengqi2",
+      "name": "叉腰生气",
+      "tags": [
+        "angry"
+      ],
+      "sourceFrames": 2,
+      "fps": 8,
+      "loops": 20,
+      "duration": 5.0,
+      "crop": [
+        103,
+        200,
+        232,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/yier-animation/叉腰生气.webm",
+      "sha256": "a39f50102692e04f29b520f47b49a3a1d175c843977198e7ff9d879c1b8b2686"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s24_wanjuche",
+      "name": "玩具车",
+      "tags": [
+        "sad"
+      ],
+      "sourceFrames": 19,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.75,
+      "crop": [
+        106,
+        200,
+        230,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/yier-animation/玩具车.webm",
+      "sha256": "176fbeeba6a28989e91bebfe316f108a03bd4126f5a8bd1d9a10ba5e0a45d5a4"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s26_wanshouji",
+      "name": "躺着玩手机",
+      "tags": [
+        "lazy"
+      ],
+      "sourceFrames": 13,
+      "fps": 8,
+      "loops": 3,
+      "duration": 4.875,
+      "crop": [
+        80,
+        200,
+        255,
+        362
+      ],
+      "scale": 1.3485714285714285,
+      "file": "packs/yier-animation/躺着玩手机.webm",
+      "sha256": "8cd6a07f849b19f56bb30d5f430aa457a868088136e6a036066ad49820a72c75"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s28_fenpu2",
+      "name": "扑粉打扮",
+      "tags": [
+        "idle"
+      ],
+      "sourceFrames": 17,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.25,
+      "crop": [
+        87,
+        200,
+        248,
+        362
+      ],
+      "scale": 1.4658385093167703,
+      "file": "packs/yier-animation/扑粉打扮.webm",
+      "sha256": "e9cecdbaee9c8120c6ae7b784471d547076c453337231f99b6858a9d3c01f9d3"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s44_maohuo",
+      "name": "头顶冒火",
+      "tags": [
+        "angry"
+      ],
+      "sourceFrames": 21,
+      "fps": 8,
+      "loops": 2,
+      "duration": 5.25,
+      "crop": [
+        87,
+        200,
+        249,
+        362
+      ],
+      "scale": 1.4567901234567902,
+      "file": "packs/yier-animation/头顶冒火.webm",
+      "sha256": "3a2892af95bc074637a45a37c77bc2282a231f0e1f4903f50488830710131e27"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s45_baonu",
+      "name": "气到跺脚",
+      "tags": [
+        "angry"
+      ],
+      "sourceFrames": 14,
+      "fps": 8,
+      "loops": 3,
+      "duration": 5.25,
+      "crop": [
+        104,
+        200,
+        232,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/yier-animation/气到跺脚.webm",
+      "sha256": "5b39e9d0e76bbfcd91e1508cb33cd45b7ef12dd21222c68b9e8abd7ae24fe5ad"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s46_zhaohuo",
+      "name": "红温着火",
+      "tags": [
+        "hot",
+        "angry"
+      ],
+      "sourceFrames": 18,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.5,
+      "crop": [
+        82,
+        200,
+        254,
+        362
+      ],
+      "scale": 1.372093023255814,
+      "file": "packs/yier-animation/红温着火.webm",
+      "sha256": "61df466fa5e070744c7bfd78e265f3582ecda6747fd361b31479a08234ef72e8"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s47_bixin",
+      "name": "比心",
+      "tags": [
+        "love"
+      ],
+      "sourceFrames": 28,
+      "fps": 8,
+      "loops": 1,
+      "duration": 3.5,
+      "crop": [
+        75,
+        200,
+        260,
+        362
+      ],
+      "scale": 1.2756756756756757,
+      "file": "packs/yier-animation/比心.webm",
+      "sha256": "1105b236de45ee7f55a30ef103a65222d38ad2d3b69bbe38999e4a2671f11f58"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s50_dadianna",
+      "name": "打电脑",
+      "tags": [
+        "work"
+      ],
+      "sourceFrames": 18,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.5,
+      "crop": [
+        84,
+        200,
+        251,
+        362
+      ],
+      "scale": 1.4131736526946108,
+      "file": "packs/yier-animation/打电脑.webm",
+      "sha256": "d765d288fd211b3657747a412d468c2b87a009d68100adede56cee8e0ce445af"
+    },
+    {
+      "pack": "yier",
+      "sourceId": "s51_aoaoku",
+      "name": "嗷嗷哭",
+      "tags": [
+        "sad"
+      ],
+      "sourceFrames": 24,
+      "fps": 8,
+      "loops": 2,
+      "duration": 6.0,
+      "crop": [
+        83,
+        200,
+        253,
+        362
+      ],
+      "scale": 1.388235294117647,
+      "file": "packs/yier-animation/嗷嗷哭.webm",
+      "sha256": "ded3cae1bd60bcd5f66d612e83aeb332e872cb0d5395ab7373a5ec1b745eea6b"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s03_liuhan",
+      "name": "擦汗",
+      "tags": [
+        "tired"
+      ],
+      "sourceFrames": 23,
+      "fps": 8,
+      "loops": 2,
+      "duration": 5.75,
+      "crop": [
+        103,
+        200,
+        232,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/bubu-animation/擦汗.webm",
+      "sha256": "5001f30e185a413bd95b51beaf5324146aeedaa504640666c4b871a639418f6a"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s05_chilingshi",
+      "name": "吃零食",
+      "tags": [
+        "eat"
+      ],
+      "sourceFrames": 21,
+      "fps": 8,
+      "loops": 2,
+      "duration": 5.25,
+      "crop": [
+        83,
+        200,
+        253,
+        362
+      ],
+      "scale": 1.388235294117647,
+      "file": "packs/bubu-animation/吃零食.webm",
+      "sha256": "a6c0923de5e88759ef5fd2ea376fcda090e5d70ffe30a3cc06b28f76087bafea"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s06_shenlanyao",
+      "name": "伸懒腰",
+      "tags": [
+        "lazy"
+      ],
+      "sourceFrames": 22,
+      "fps": 8,
+      "loops": 2,
+      "duration": 5.5,
+      "crop": [
+        92,
+        200,
+        244,
+        362
+      ],
+      "scale": 1.5526315789473684,
+      "file": "packs/bubu-animation/伸懒腰.webm",
+      "sha256": "a6d2122a69092e6cfde27568300c1407271574783fda1e365b8cb8e604d43425"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s10_zuozhe",
+      "name": "坐着发呆",
+      "tags": [
+        "idle"
+      ],
+      "sourceFrames": 15,
+      "fps": 8,
+      "loops": 3,
+      "duration": 5.625,
+      "crop": [
+        95,
+        200,
+        240,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/bubu-animation/坐着发呆.webm",
+      "sha256": "95ecdedc3c57a5e76fedbffabd4f49cbe28a89d064df09da9450dcc67e7eb833"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s12_tiaosheng",
+      "name": "跳绳",
+      "tags": [
+        "exercise"
+      ],
+      "sourceFrames": 17,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.25,
+      "crop": [
+        96,
+        200,
+        240,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/bubu-animation/跳绳.webm",
+      "sha256": "6effaf0eb35dc2ae6788773ab4a9756e2a9013e7b19bc43afe3478093d8e2555"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s20_haolei",
+      "name": "好累呀",
+      "tags": [
+        "tired"
+      ],
+      "sourceFrames": 18,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.5,
+      "crop": [
+        63,
+        200,
+        272,
+        362
+      ],
+      "scale": 1.1291866028708133,
+      "file": "packs/bubu-animation/好累呀.webm",
+      "sha256": "2fb047b61854c76e0ae01912cdf2efa95dbc8278d0f7e0707ddf7e3f845888d3"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s22_xingli",
+      "name": "收拾行李",
+      "tags": [
+        "tired"
+      ],
+      "sourceFrames": 17,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.25,
+      "crop": [
+        86,
+        200,
+        250,
+        362
+      ],
+      "scale": 1.4390243902439024,
+      "file": "packs/bubu-animation/收拾行李.webm",
+      "sha256": "55019fcf67621259095c729a43bb9f16f4102da5d39bcaf5e0e6ea90c4fd57c5"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s25_wanjuche",
+      "name": "玩具车",
+      "tags": [
+        "sad"
+      ],
+      "sourceFrames": 19,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.75,
+      "crop": [
+        106,
+        200,
+        230,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/bubu-animation/玩具车.webm",
+      "sha256": "b466ec3fc706311e56544b0237749f69148031bb88a8dc48a56fa44ae1983bd7"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s27_wanshouji",
+      "name": "躺着玩手机",
+      "tags": [
+        "lazy"
+      ],
+      "sourceFrames": 13,
+      "fps": 8,
+      "loops": 3,
+      "duration": 4.875,
+      "crop": [
+        80,
+        200,
+        256,
+        362
+      ],
+      "scale": 1.3409090909090908,
+      "file": "packs/bubu-animation/躺着玩手机.webm",
+      "sha256": "091540683e79696831c22a879316b1e99b8a795908f0929cbedc097cf12a330f"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s29_weiqu",
+      "name": "委屈巴巴",
+      "tags": [
+        "sad"
+      ],
+      "sourceFrames": 16,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.0,
+      "crop": [
+        84,
+        200,
+        251,
+        362
+      ],
+      "scale": 1.4131736526946108,
+      "file": "packs/bubu-animation/委屈巴巴.webm",
+      "sha256": "2228f0ebe74e319282d81e40e136f020a93d68b3245fa61e50975e79ab323e3e"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s42_sahua",
+      "name": "撒花",
+      "tags": [
+        "happy"
+      ],
+      "sourceFrames": 31,
+      "fps": 8,
+      "loops": 1,
+      "duration": 3.875,
+      "crop": [
+        82,
+        200,
+        253,
+        362
+      ],
+      "scale": 1.3801169590643274,
+      "file": "packs/bubu-animation/撒花.webm",
+      "sha256": "5704a099fdbaaef3e606b92ffd4a810c35094a237612c3b982756ffbce5ed349"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s43_daku",
+      "name": "大哭",
+      "tags": [
+        "sad"
+      ],
+      "sourceFrames": 26,
+      "fps": 8,
+      "loops": 2,
+      "duration": 6.5,
+      "crop": [
+        74,
+        201,
+        261,
+        362
+      ],
+      "scale": 1.2620320855614973,
+      "file": "packs/bubu-animation/大哭.webm",
+      "sha256": "76635f85cc9bcd3ca6e7df4a495e0fa002503cb2c8741a5461c249c75d38b1ca"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s49_hekafei",
+      "name": "喝咖啡打电脑",
+      "tags": [
+        "work"
+      ],
+      "sourceFrames": 18,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.5,
+      "crop": [
+        83,
+        200,
+        253,
+        362
+      ],
+      "scale": 1.388235294117647,
+      "file": "packs/bubu-animation/喝咖啡打电脑.webm",
+      "sha256": "6789f315944036313ecb56166837d229b143191ddbc65cc0ef542be27e573e10"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s52_zhanli",
+      "name": "摇摇晃晃",
+      "tags": [
+        "idle"
+      ],
+      "sourceFrames": 19,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.75,
+      "crop": [
+        92,
+        200,
+        243,
+        362
+      ],
+      "scale": 1.5629139072847682,
+      "file": "packs/bubu-animation/摇摇晃晃.webm",
+      "sha256": "bb0ea5123c4e4dff5039158dafc93c69a109e2b0f32365296a7bedfe5a91e9dc"
+    },
+    {
+      "pack": "bubu",
+      "sourceId": "s53_shouji",
+      "name": "看一二照片",
+      "tags": [
+        "lazy"
+      ],
+      "sourceFrames": 27,
+      "fps": 8,
+      "loops": 1,
+      "duration": 3.375,
+      "crop": [
+        86,
+        200,
+        250,
+        362
+      ],
+      "scale": 1.4390243902439024,
+      "file": "packs/bubu-animation/看一二照片.webm",
+      "sha256": "8ed7777fdcbbd97ac76938ca84debe97c0c1a61750b170d5b19c261e6b73ed75"
+    },
+    {
+      "pack": "duo",
+      "sourceId": "s13_baobao",
+      "name": "抱抱",
+      "tags": [
+        "love"
+      ],
+      "sourceFrames": 10,
+      "fps": 8,
+      "loops": 4,
+      "duration": 5.0,
+      "crop": [
+        56,
+        200,
+        279,
+        362
+      ],
+      "scale": 1.0582959641255605,
+      "file": "packs/duo-animation/抱抱.webm",
+      "sha256": "d8b95c7ec9fba42f0b2ad3c94c6763bdb00f4ba02c23b145a41805305a43948c"
+    },
+    {
+      "pack": "duo",
+      "sourceId": "s30_qitou-bixin",
+      "name": "骑头比心",
+      "tags": [
+        "love"
+      ],
+      "sourceFrames": 9,
+      "fps": 8,
+      "loops": 4,
+      "duration": 4.5,
+      "crop": [
+        91,
+        200,
+        244,
+        362
+      ],
+      "scale": 1.542483660130719,
+      "file": "packs/duo-animation/骑头比心.webm",
+      "sha256": "8b836ff395533ab20626e4df1c1f0c9200334d601dfff9908616b34c6d923d8c"
+    },
+    {
+      "pack": "duo",
+      "sourceId": "s32_qibei",
+      "name": "背着一二",
+      "tags": [
+        "happy"
+      ],
+      "sourceFrames": 17,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.25,
+      "crop": [
+        90,
+        200,
+        246,
+        362
+      ],
+      "scale": 1.5128205128205128,
+      "file": "packs/duo-animation/背着一二.webm",
+      "sha256": "93ebfa48f0701b24d49ed43e79cf53fba5818295b96fd67322ab7c64d6f86ba7"
+    },
+    {
+      "pack": "duo",
+      "sourceId": "s34_qinqin",
+      "name": "亲亲",
+      "tags": [
+        "love"
+      ],
+      "sourceFrames": 8,
+      "fps": 8,
+      "loops": 5,
+      "duration": 5.0,
+      "crop": [
+        51,
+        200,
+        284,
+        362
+      ],
+      "scale": 1.0128755364806867,
+      "file": "packs/duo-animation/亲亲.webm",
+      "sha256": "4c6cf23382e97bd5b4547eb19a4ef33e1e9f4e1e8dd50001fb4bddae0b57f9ee"
+    },
+    {
+      "pack": "duo",
+      "sourceId": "s36_zipai",
+      "name": "一起自拍",
+      "tags": [
+        "happy"
+      ],
+      "sourceFrames": 9,
+      "fps": 8,
+      "loops": 4,
+      "duration": 4.5,
+      "crop": [
+        70,
+        200,
+        266,
+        362
+      ],
+      "scale": 1.2040816326530612,
+      "file": "packs/duo-animation/一起自拍.webm",
+      "sha256": "f44deb2284735dfdae47f9f9691ecf5ddcb8a6145a24c900b7e4ab7b6b19310c"
+    },
+    {
+      "pack": "duo",
+      "sourceId": "s37_dieluohan",
+      "name": "叠罗汉",
+      "tags": [
+        "happy"
+      ],
+      "sourceFrames": 8,
+      "fps": 8,
+      "loops": 5,
+      "duration": 5.0,
+      "crop": [
+        119,
+        200,
+        216,
+        362
+      ],
+      "scale": 1.5925925925925926,
+      "file": "packs/duo-animation/叠罗汉.webm",
+      "sha256": "b8a8a1a1f9468c09c755786b51daa2a1df2045fefc0446f9dcb448b61d747fb3"
+    },
+    {
+      "pack": "duo",
+      "sourceId": "s38_diandongche",
+      "name": "一起骑车",
+      "tags": [
+        "happy"
+      ],
+      "sourceFrames": 9,
+      "fps": 8,
+      "loops": 4,
+      "duration": 4.5,
+      "crop": [
+        76,
+        200,
+        259,
+        362
+      ],
+      "scale": 1.289617486338798,
+      "file": "packs/duo-animation/一起骑车.webm",
+      "sha256": "0e32cba930a2ebd07514d8c2bd7cb5e4398e134a747ae427c4b4b6c6fec6ea64"
+    },
+    {
+      "pack": "duo",
+      "sourceId": "s39_tangzhe-shuaji",
+      "name": "一起躺着玩手机",
+      "tags": [
+        "lazy"
+      ],
+      "sourceFrames": 20,
+      "fps": 8,
+      "loops": 2,
+      "duration": 5.0,
+      "crop": [
+        63,
+        200,
+        273,
+        362
+      ],
+      "scale": 1.1238095238095238,
+      "file": "packs/duo-animation/一起躺着玩手机.webm",
+      "sha256": "d422718574842e5da291bb272b29a6e205ffb8f1cdd8d06064aefdf8e586a495"
+    },
+    {
+      "pack": "duo",
+      "sourceId": "s40_mianduimian",
+      "name": "面对面",
+      "tags": [
+        "idle"
+      ],
+      "sourceFrames": 12,
+      "fps": 8,
+      "loops": 3,
+      "duration": 4.5,
+      "crop": [
+        85,
+        200,
+        250,
+        362
+      ],
+      "scale": 1.4303030303030304,
+      "file": "packs/duo-animation/面对面.webm",
+      "sha256": "e6ae7048ac3c3c2a695b23841625cfeccaf6ac7643adbb0faa24ec60e74e470e"
+    },
+    {
+      "pack": "duo",
+      "sourceId": "s48_beihoubao",
+      "name": "背后抱",
+      "tags": [
+        "love"
+      ],
+      "sourceFrames": 16,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.0,
+      "crop": [
+        92,
+        200,
+        243,
+        362
+      ],
+      "scale": 1.5629139072847682,
+      "file": "packs/duo-animation/背后抱.webm",
+      "sha256": "5528eddb13b6c04c884315537170204c358d5d1c5a0c3175f4785316a1b1bdc1"
+    },
+    {
+      "pack": "duo",
+      "sourceId": "s55_linlanzi",
+      "name": "一起拎篮子",
+      "tags": [
+        "idle"
+      ],
+      "sourceFrames": 18,
+      "fps": 8,
+      "loops": 2,
+      "duration": 4.5,
+      "crop": [
+        80,
+        200,
+        256,
+        362
+      ],
+      "scale": 1.3409090909090908,
+      "file": "packs/duo-animation/一起拎篮子.webm",
+      "sha256": "cdc8e904129a37a66e157f904f6c2e3a9f7acd1bd96dbc66cf2db75b2cb4d93b"
+    }
+  ]
+}

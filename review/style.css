@@ -1,0 +1,17 @@
+:root{color-scheme:light;--paper:#f7f3ec;--ink:#39342f;--accent:#866442;--line:#e8dfd2}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header,footer{max-width:1200px;margin:32px auto 24px;padding:0 24px}h1{font-size:32px;margin:0 0 10px}h2{font-size:18px;margin:0 0 14px}
+p{line-height:1.75}.intro{color:#71685e}.mode-panel{padding:20px;border:1px solid var(--line);background:#fffcf7;border-radius:20px;margin:22px 0}
+.mode-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+button{font:inherit;border:1px solid #d1c3b2;border-radius:12px;background:#fffaf3;padding:9px 14px;cursor:pointer;color:inherit}
+button:hover{background:#f0e2ce}button:focus-visible{outline:3px solid #9a754b;outline-offset:3px}button:disabled{opacity:.5;cursor:default}
+.mode-button{text-align:left;padding:16px;display:grid;gap:6px}.mode-button strong{font-size:20px}.mode-button span{font-weight:600}.mode-button small{margin:0}
+.mode-button[aria-pressed="true"]{background:#ead7b8;border-color:#977447;box-shadow:inset 0 0 0 1px #977447}
+#mode-status{margin:14px 0 0;color:var(--accent);min-height:25px}nav{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 12px}
+nav button.active{background:#e5d0af}#status{color:var(--accent);min-height:27px;margin:0 0 18px}
+main{max-width:1200px;margin:auto;padding:0 24px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(270px,100%),1fr));gap:18px}
+article{padding:16px;background:white;border:1px solid var(--line);border-radius:20px}
+video{display:block;width:100%;aspect-ratio:16/9;border-radius:12px;background:repeating-conic-gradient(#eee8dd 0% 25%,#fff 0% 50%) 0/20px 20px}
+body.dark video{background:#292d34}h3{font-size:17px;margin:14px 0 6px}small{display:block;color:#807568;margin-bottom:12px}
+footer{font-size:13px;color:#807568;line-height:1.8}a{color:var(--accent)}
+@media(max-width:420px){header,footer{padding:0 16px}main{padding:0 16px 32px}h1{font-size:28px}.mode-panel{padding:14px}.mode-button{padding:12px}.mode-button strong{font-size:18px}}

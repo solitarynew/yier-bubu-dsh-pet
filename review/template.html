@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>一二布布 · 模式与动作</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>一二布布 · 动作小屋</h1>
+  <p class="intro">49 组透明动画，使用 dsh-pet 的拖拽、漫游和动作菜单。</p>
+  <section class="mode-panel" aria-labelledby="mode-title">
+    <h2 id="mode-title">启动模式</h2>
+    <div class="mode-options" role="group" aria-label="启动模式">
+      <button class="mode-button" data-mode="pair" aria-pressed="false" onclick="switchMode('pair')">
+        <strong>双人版</strong><span>2 个独立实例</span><small>一二和布布各自活动</small>
+      </button>
+      <button class="mode-button" data-mode="duo" aria-pressed="false" onclick="switchMode('duo')">
+        <strong>组合版</strong><span>1 个同框实例</span><small>播放抱抱、亲亲等双人表情</small>
+      </button>
+    </div>
+    <p id="mode-status" role="status" aria-live="polite">正在读取当前模式……</p>
+  </section>
+  <nav aria-label="素材筛选">
+    <button class="active" data-filter="all" onclick="filter('all',this)">全部 49</button>
+    <button data-filter="yier" onclick="filter('yier',this)">一二 23</button>
+    <button data-filter="bubu" onclick="filter('bubu',this)">布布 15</button>
+    <button data-filter="duo" onclick="filter('duo',this)">双人表情 11</button>
+    <button onclick="toggleBackground()" id="background-button" aria-pressed="false">深色底检查</button>
+  </nav>
+  <p id="status" role="status" aria-live="polite">素材可随时预览；点播只对当前模式已显示的角色生效。</p>
+</header>
+<main><!-- CARDS --></main>
+<footer>运行框架：<a href="https://github.com/PC2005-cloud/dsh-pet">dsh-pet</a> ·
+  角色素材：<a href="https://github.com/xiaojieshi-bot/YierPet">YierPet</a> · 非官方粉丝项目</footer>
+<script src="app.js"></script>
+</body>
+</html>
