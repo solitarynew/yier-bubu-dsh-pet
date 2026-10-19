@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { InteractionCoordinator, ROUTINES, validReport } from '../scripts/interaction.mjs';
+import { InteractionCoordinator, ROUTINES, SYNC_ROUTINES, DUO_ROUTINES, validReport } from '../scripts/interaction.mjs';
 const peer = (pet, x = 0, busy = false, instance = pet) => ({ pet, x, y: 300, size: 490, busy, instance });
 function send(c, t, x = 220, busy = false) {
   c.report(peer('yier'), t);
@@ -17,7 +17,8 @@ test('nearby dwell creates one shared session, using only real character clips',
   assert.equal(session.facing.yier, 'right'); assert.equal(session.facing.bubu, 'left');
   assert.equal(c.report(peer('yier'), 1900).session.id, session.id);
   assert.ok(session.startAt > 1900);
-  for (const routine of ROUTINES) for (const [pack, name] of Object.entries(routine.clips)) {
+  assert.equal(session.kind, 'duo');
+  for (const routine of ROUTINES) for (const [pack, name] of Object.entries(routine.kind === 'duo' ? {duo:routine.duoAnim} : routine.clips)) {
     assert.ok(fs.existsSync(new URL(`../packs/${pack}-animation/${name}.webm`, import.meta.url)));
   }
 });
@@ -57,4 +58,26 @@ test('report validation rejects invalid coordinates and unrelated pets', () => {
   for (const change of [{pet:'duo'}, {x:NaN}, {x:Infinity}, {busy:'false'}, {size:-1}, {instance:''}]) {
     assert.equal(validReport({...peer('yier'), ...change}), false);
   }
+});
+
+
+test('sync-only routines always select the same action name for both characters', () => {
+  for (const routine of SYNC_ROUTINES) {
+    assert.equal(routine.clips.yier, routine.clips.bubu);
+    for (const pack of ['yier', 'bubu']) assert.ok(fs.existsSync(new URL(`../packs/${pack}-animation/${routine.clips[pack]}.webm`, import.meta.url)));
+  }
+  const c = new InteractionCoordinator(); c.configure(true, 'pair', 'sync');
+  send(c, 1000); assert.equal(send(c, 1900).session.kind, 'sync');
+});
+test('duo-only routines borrow existing combined clips without changing startup mode', () => {
+  const c = new InteractionCoordinator(); c.configure(true, 'pair', 'duo');
+  send(c, 1000); const session = send(c, 1900).session;
+  assert.equal(session.kind, 'duo'); assert.equal(session.duoAnim, '抱抱');
+  assert.equal(c.mode, 'pair'); assert.equal(session.anchor.x, 110);
+  assert.ok(DUO_ROUTINES.every(scene=>fs.existsSync(new URL(`../packs/duo-animation/${scene.duoAnim}.webm`, import.meta.url))));
+});
+test('changing style cancels an existing scene before using the new routine pool', () => {
+  const c = ready(); send(c, 1000); assert.ok(send(c, 1900).session);
+  c.configure(true, 'pair', 'sync'); assert.equal(c.session, null);
+  send(c, 3000); assert.equal(send(c, 3900).session.kind, 'sync');
 });

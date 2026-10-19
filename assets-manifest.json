@@ -21,9 +21,10 @@
         249,
         362
       ],
-      "scale": 1.4478527607361964,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/气鼓鼓.webm",
-      "sha256": "02d8389bc8a39b0b30556021d094a2ec0ac2c574419eb958719aaaf4065810f7"
+      "sha256": "06ac524b0a7d3190ee631b38c3199f4ad84104f3324fc9f446ac8045177925af"
     },
     {
       "pack": "yier",
@@ -44,7 +45,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/yier-animation/围巾舞.webm",
-      "sha256": "aade29eeb11a8f294603c74354a908ccd47e6e154317aff1d76c9ca765b68bd9"
+      "sha256": "aade29eeb11a8f294603c74354a908ccd47e6e154317aff1d76c9ca765b68bd9",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "yier",
@@ -65,7 +67,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/yier-animation/咸鱼躺平.webm",
-      "sha256": "9a288167cc5d9948f911ca408fe01420452189859a72cee51be249751a9419b4"
+      "sha256": "9a288167cc5d9948f911ca408fe01420452189859a72cee51be249751a9419b4",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "yier",
@@ -84,9 +87,10 @@
         247,
         362
       ],
-      "scale": 1.4936708860759493,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/吃饭团.webm",
-      "sha256": "32c7338d90d506999588b5b8b67d6e195ebc610063298347f110d0ef498f2508"
+      "sha256": "622a155e13e2f1cb546de8014c8b55b97070a491e28599b76eded90b63a244a4"
     },
     {
       "pack": "yier",
@@ -107,7 +111,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/yier-animation/抱枕头.webm",
-      "sha256": "345c77b9a58d6f738083cba4f94686d7dadcd88160a0d85b5696f075bd454968"
+      "sha256": "345c77b9a58d6f738083cba4f94686d7dadcd88160a0d85b5696f075bd454968",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "yier",
@@ -128,7 +133,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/yier-animation/坐着发呆.webm",
-      "sha256": "2b38d28b1f48b43c0e7aceb047bace44d09b8139ae1161e25983bcd9f5e01d2c"
+      "sha256": "2b38d28b1f48b43c0e7aceb047bace44d09b8139ae1161e25983bcd9f5e01d2c",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "yier",
@@ -149,7 +155,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/yier-animation/跳绳.webm",
-      "sha256": "e26fbbb470bec0eba9947db2ef45a75053e439456f1982d9a7aaa68378ff71f0"
+      "sha256": "e26fbbb470bec0eba9947db2ef45a75053e439456f1982d9a7aaa68378ff71f0",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "yier",
@@ -168,9 +175,10 @@
         244,
         362
       ],
-      "scale": 1.5526315789473684,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/歪头发呆.webm",
-      "sha256": "0c5be4d5aa6a7a8faa83c4f3b23599d95278a3b70230412f45d29dd389ca36d3"
+      "sha256": "a649c350efd83fb86bbb3d2118d4e3ffa8eec98ef8f86e934a9bb393f0fb6cc9"
     },
     {
       "pack": "yier",
@@ -191,7 +199,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/yier-animation/靠垫休息.webm",
-      "sha256": "dccdcad0880b71086840e25b596930dd6f4eda4f2479b000ebbfbb90cf3c0a1a"
+      "sha256": "dccdcad0880b71086840e25b596930dd6f4eda4f2479b000ebbfbb90cf3c0a1a",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "yier",
@@ -212,7 +221,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/yier-animation/骑木马.webm",
-      "sha256": "435290f6d46d53ceb64293e880462c7dc1071a1cb4c1619e6fde976542283aeb"
+      "sha256": "435290f6d46d53ceb64293e880462c7dc1071a1cb4c1619e6fde976542283aeb",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "yier",
@@ -231,9 +241,10 @@
         251,
         362
       ],
-      "scale": 1.4131736526946108,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/骑小车.webm",
-      "sha256": "990fc09d86c925e2f4d9691ad4be901509baee65fb2be2a817fe25e682323d5b"
+      "sha256": "3d18185253320bef1c6c0f9bb6cfe478d85cf1a30b53748e7be88e05bf141b25"
     },
     {
       "pack": "yier",
@@ -252,9 +263,10 @@
         272,
         362
       ],
-      "scale": 1.1291866028708133,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/好累呀.webm",
-      "sha256": "156003d70a83219e55fb485a3b12b10b5bb87d3010308d031373d879960583f9"
+      "sha256": "fddbdd1d13e07df0ac81b33ddc60c47a3e1248ea6d3563f16dfd6ceb42dffd7a"
     },
     {
       "pack": "yier",
@@ -273,9 +285,10 @@
         248,
         362
       ],
-      "scale": 1.475,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/收拾行李.webm",
-      "sha256": "4b2950566eba2b934b9e926bfd6acc029b6bcfe9ffe321a40cb1a9513434dff9"
+      "sha256": "a2ff46ec48f16fd34bb4302e276f7b7d877414478a4814a2ee052048120684a0"
     },
     {
       "pack": "yier",
@@ -296,7 +309,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/yier-animation/叉腰生气.webm",
-      "sha256": "a39f50102692e04f29b520f47b49a3a1d175c843977198e7ff9d879c1b8b2686"
+      "sha256": "a39f50102692e04f29b520f47b49a3a1d175c843977198e7ff9d879c1b8b2686",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "yier",
@@ -317,7 +331,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/yier-animation/玩具车.webm",
-      "sha256": "176fbeeba6a28989e91bebfe316f108a03bd4126f5a8bd1d9a10ba5e0a45d5a4"
+      "sha256": "176fbeeba6a28989e91bebfe316f108a03bd4126f5a8bd1d9a10ba5e0a45d5a4",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "yier",
@@ -336,9 +351,10 @@
         255,
         362
       ],
-      "scale": 1.3485714285714285,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/躺着玩手机.webm",
-      "sha256": "8cd6a07f849b19f56bb30d5f430aa457a868088136e6a036066ad49820a72c75"
+      "sha256": "1d3d53b51cd59c4ad408ce6705683085cc1a45262db4d74ac653afbad7d574d0"
     },
     {
       "pack": "yier",
@@ -357,9 +373,10 @@
         248,
         362
       ],
-      "scale": 1.4658385093167703,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/扑粉打扮.webm",
-      "sha256": "e9cecdbaee9c8120c6ae7b784471d547076c453337231f99b6858a9d3c01f9d3"
+      "sha256": "374331b9631b104d75cea28f601ffaf48a6f8adf46e5488504b22b1ce1f41a8c"
     },
     {
       "pack": "yier",
@@ -378,9 +395,10 @@
         249,
         362
       ],
-      "scale": 1.4567901234567902,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/头顶冒火.webm",
-      "sha256": "3a2892af95bc074637a45a37c77bc2282a231f0e1f4903f50488830710131e27"
+      "sha256": "8d612adf5c0c54842489016babaad215a700f579ba4ec07f141460b2a4c629a6"
     },
     {
       "pack": "yier",
@@ -401,7 +419,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/yier-animation/气到跺脚.webm",
-      "sha256": "5b39e9d0e76bbfcd91e1508cb33cd45b7ef12dd21222c68b9e8abd7ae24fe5ad"
+      "sha256": "5b39e9d0e76bbfcd91e1508cb33cd45b7ef12dd21222c68b9e8abd7ae24fe5ad",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "yier",
@@ -421,9 +440,10 @@
         254,
         362
       ],
-      "scale": 1.372093023255814,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/红温着火.webm",
-      "sha256": "61df466fa5e070744c7bfd78e265f3582ecda6747fd361b31479a08234ef72e8"
+      "sha256": "f7e99351e4015c28f3457e6aeae362266c052e973e4ac9633a57dc592a8db5d0"
     },
     {
       "pack": "yier",
@@ -442,9 +462,10 @@
         260,
         362
       ],
-      "scale": 1.2756756756756757,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/比心.webm",
-      "sha256": "1105b236de45ee7f55a30ef103a65222d38ad2d3b69bbe38999e4a2671f11f58"
+      "sha256": "32ea7be9a33c2be60e4b6028b6c402b5c982b75ad53cb49f058656d949d4350f"
     },
     {
       "pack": "yier",
@@ -463,9 +484,10 @@
         251,
         362
       ],
-      "scale": 1.4131736526946108,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/打电脑.webm",
-      "sha256": "d765d288fd211b3657747a412d468c2b87a009d68100adede56cee8e0ce445af"
+      "sha256": "bfbae7e889cf371100cec4baa551d49809f9ddddb11ffec82ad853d06a5dd393"
     },
     {
       "pack": "yier",
@@ -484,9 +506,10 @@
         253,
         362
       ],
-      "scale": 1.388235294117647,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/yier-animation/嗷嗷哭.webm",
-      "sha256": "ded3cae1bd60bcd5f66d612e83aeb332e872cb0d5395ab7373a5ec1b745eea6b"
+      "sha256": "ba4e8b456efb40d0163dc0baea7595ead26f33b2e3949a17cba74fec4df547f7"
     },
     {
       "pack": "bubu",
@@ -507,7 +530,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/bubu-animation/擦汗.webm",
-      "sha256": "5001f30e185a413bd95b51beaf5324146aeedaa504640666c4b871a639418f6a"
+      "sha256": "5001f30e185a413bd95b51beaf5324146aeedaa504640666c4b871a639418f6a",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "bubu",
@@ -526,9 +550,10 @@
         253,
         362
       ],
-      "scale": 1.388235294117647,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/bubu-animation/吃零食.webm",
-      "sha256": "a6c0923de5e88759ef5fd2ea376fcda090e5d70ffe30a3cc06b28f76087bafea"
+      "sha256": "327cb63a6b5d77e914b98b2f5bb0a328ddd71dce5b0631c8501ba3016f521246"
     },
     {
       "pack": "bubu",
@@ -547,9 +572,10 @@
         244,
         362
       ],
-      "scale": 1.5526315789473684,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/bubu-animation/伸懒腰.webm",
-      "sha256": "a6d2122a69092e6cfde27568300c1407271574783fda1e365b8cb8e604d43425"
+      "sha256": "260a764c324d54673e44e1ca84739a5edd70b93c25410e53ee3b73bd148f27e2"
     },
     {
       "pack": "bubu",
@@ -570,7 +596,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/bubu-animation/坐着发呆.webm",
-      "sha256": "95ecdedc3c57a5e76fedbffabd4f49cbe28a89d064df09da9450dcc67e7eb833"
+      "sha256": "95ecdedc3c57a5e76fedbffabd4f49cbe28a89d064df09da9450dcc67e7eb833",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "bubu",
@@ -591,7 +618,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/bubu-animation/跳绳.webm",
-      "sha256": "6effaf0eb35dc2ae6788773ab4a9756e2a9013e7b19bc43afe3478093d8e2555"
+      "sha256": "6effaf0eb35dc2ae6788773ab4a9756e2a9013e7b19bc43afe3478093d8e2555",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "bubu",
@@ -610,9 +638,10 @@
         272,
         362
       ],
-      "scale": 1.1291866028708133,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/bubu-animation/好累呀.webm",
-      "sha256": "2fb047b61854c76e0ae01912cdf2efa95dbc8278d0f7e0707ddf7e3f845888d3"
+      "sha256": "7c4f7b32468daadc8e44ed8729728e2a0c03aaaa6dfea00d8053b615e74e38be"
     },
     {
       "pack": "bubu",
@@ -631,9 +660,10 @@
         250,
         362
       ],
-      "scale": 1.4390243902439024,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/bubu-animation/收拾行李.webm",
-      "sha256": "55019fcf67621259095c729a43bb9f16f4102da5d39bcaf5e0e6ea90c4fd57c5"
+      "sha256": "8983a89b9bb69fda26cc58fd8338dae68b6c20200f05d4d867b4d2fd990b7e02"
     },
     {
       "pack": "bubu",
@@ -654,7 +684,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/bubu-animation/玩具车.webm",
-      "sha256": "b466ec3fc706311e56544b0237749f69148031bb88a8dc48a56fa44ae1983bd7"
+      "sha256": "b466ec3fc706311e56544b0237749f69148031bb88a8dc48a56fa44ae1983bd7",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "bubu",
@@ -673,9 +704,10 @@
         256,
         362
       ],
-      "scale": 1.3409090909090908,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/bubu-animation/躺着玩手机.webm",
-      "sha256": "091540683e79696831c22a879316b1e99b8a795908f0929cbedc097cf12a330f"
+      "sha256": "830073e64f3092857d5e98e9c937a7fb54e5bd42b9b39e1cd8980470cf1ef4e7"
     },
     {
       "pack": "bubu",
@@ -694,9 +726,10 @@
         251,
         362
       ],
-      "scale": 1.4131736526946108,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/bubu-animation/委屈巴巴.webm",
-      "sha256": "2228f0ebe74e319282d81e40e136f020a93d68b3245fa61e50975e79ab323e3e"
+      "sha256": "9f7d740297da2bf77b44eac300ecf4630d5c560d69b08bd23db2c79787f7f44f"
     },
     {
       "pack": "bubu",
@@ -715,9 +748,10 @@
         253,
         362
       ],
-      "scale": 1.3801169590643274,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/bubu-animation/撒花.webm",
-      "sha256": "5704a099fdbaaef3e606b92ffd4a810c35094a237612c3b982756ffbce5ed349"
+      "sha256": "3cff92565f0106348925b52dd481f28ce114d97fa93bce4018c5e4816e9e7db5"
     },
     {
       "pack": "bubu",
@@ -736,9 +770,10 @@
         261,
         362
       ],
-      "scale": 1.2620320855614973,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/bubu-animation/大哭.webm",
-      "sha256": "76635f85cc9bcd3ca6e7df4a495e0fa002503cb2c8741a5461c249c75d38b1ca"
+      "sha256": "896265d570e80cc71b9e893b5b49b7cc17992c103440575d36ac2f741b83be84"
     },
     {
       "pack": "bubu",
@@ -757,9 +792,10 @@
         253,
         362
       ],
-      "scale": 1.388235294117647,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/bubu-animation/喝咖啡打电脑.webm",
-      "sha256": "6789f315944036313ecb56166837d229b143191ddbc65cc0ef542be27e573e10"
+      "sha256": "bf442cb281b047cc8d159ec3bd8bacc1e6712a795e81774bb24a7516c59d1d13"
     },
     {
       "pack": "bubu",
@@ -778,9 +814,10 @@
         243,
         362
       ],
-      "scale": 1.5629139072847682,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/bubu-animation/摇摇晃晃.webm",
-      "sha256": "bb0ea5123c4e4dff5039158dafc93c69a109e2b0f32365296a7bedfe5a91e9dc"
+      "sha256": "76b235bc90bf8007d67873a0e03956c2375c0269f1443f0c1431db3fa5d52314"
     },
     {
       "pack": "bubu",
@@ -799,9 +836,10 @@
         250,
         362
       ],
-      "scale": 1.4390243902439024,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/bubu-animation/看一二照片.webm",
-      "sha256": "8ed7777fdcbbd97ac76938ca84debe97c0c1a61750b170d5b19c261e6b73ed75"
+      "sha256": "59617fe63e1bdb383cd0f0828e80c731f431f161da1e00c77d438f5c3b692344"
     },
     {
       "pack": "duo",
@@ -820,9 +858,10 @@
         279,
         362
       ],
-      "scale": 1.0582959641255605,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/duo-animation/抱抱.webm",
-      "sha256": "d8b95c7ec9fba42f0b2ad3c94c6763bdb00f4ba02c23b145a41805305a43948c"
+      "sha256": "50fa1a3e7f553e1e13399d1abc259e3cc1ccfaba38c1e9ea35c84884a717add2"
     },
     {
       "pack": "duo",
@@ -841,9 +880,10 @@
         244,
         362
       ],
-      "scale": 1.542483660130719,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/duo-animation/骑头比心.webm",
-      "sha256": "8b836ff395533ab20626e4df1c1f0c9200334d601dfff9908616b34c6d923d8c"
+      "sha256": "c1a8817e7a07896e8bbcfb42f4516cab1dee82c019b79ad786728e76c2be6340"
     },
     {
       "pack": "duo",
@@ -862,9 +902,10 @@
         246,
         362
       ],
-      "scale": 1.5128205128205128,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/duo-animation/背着一二.webm",
-      "sha256": "93ebfa48f0701b24d49ed43e79cf53fba5818295b96fd67322ab7c64d6f86ba7"
+      "sha256": "dfaffffe2cfece46e8b6fa57428f61bfa69778b9743ee347d1d9dad588deaa4a"
     },
     {
       "pack": "duo",
@@ -883,9 +924,10 @@
         284,
         362
       ],
-      "scale": 1.0128755364806867,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/duo-animation/亲亲.webm",
-      "sha256": "4c6cf23382e97bd5b4547eb19a4ef33e1e9f4e1e8dd50001fb4bddae0b57f9ee"
+      "sha256": "ceae7ca4c7ee361600057c898988fb19875674cee37b95c0fd98086d84494f14"
     },
     {
       "pack": "duo",
@@ -904,9 +946,10 @@
         266,
         362
       ],
-      "scale": 1.2040816326530612,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/duo-animation/一起自拍.webm",
-      "sha256": "f44deb2284735dfdae47f9f9691ecf5ddcb8a6145a24c900b7e4ab7b6b19310c"
+      "sha256": "176db9c0cbb72d998492ed9d69dc659314adcb79faf7071d3a7a39d7f93beac5"
     },
     {
       "pack": "duo",
@@ -927,7 +970,8 @@
       ],
       "scale": 1.5925925925925926,
       "file": "packs/duo-animation/叠罗汉.webm",
-      "sha256": "b8a8a1a1f9468c09c755786b51daa2a1df2045fefc0446f9dcb448b61d747fb3"
+      "sha256": "b8a8a1a1f9468c09c755786b51daa2a1df2045fefc0446f9dcb448b61d747fb3",
+      "scalePolicy": "uniform-source-units-v2"
     },
     {
       "pack": "duo",
@@ -946,9 +990,10 @@
         259,
         362
       ],
-      "scale": 1.289617486338798,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/duo-animation/一起骑车.webm",
-      "sha256": "0e32cba930a2ebd07514d8c2bd7cb5e4398e134a747ae427c4b4b6c6fec6ea64"
+      "sha256": "68fb32104b1a8bb0d1956725431ba4013697bcb5afda6278b9aef82603a71b26"
     },
     {
       "pack": "duo",
@@ -967,9 +1012,10 @@
         273,
         362
       ],
-      "scale": 1.1238095238095238,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/duo-animation/一起躺着玩手机.webm",
-      "sha256": "d422718574842e5da291bb272b29a6e205ffb8f1cdd8d06064aefdf8e586a495"
+      "sha256": "c000da0d4200bcaa85530436d7302d17480d4772ddd835e2e71c8f69187c4363"
     },
     {
       "pack": "duo",
@@ -988,9 +1034,10 @@
         250,
         362
       ],
-      "scale": 1.4303030303030304,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/duo-animation/面对面.webm",
-      "sha256": "e6ae7048ac3c3c2a695b23841625cfeccaf6ac7643adbb0faa24ec60e74e470e"
+      "sha256": "a71646fc30ff9f3b145cb24b1be22b3bd838010bdcf2431c470c26e42434e0b7"
     },
     {
       "pack": "duo",
@@ -1009,9 +1056,10 @@
         243,
         362
       ],
-      "scale": 1.5629139072847682,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/duo-animation/背后抱.webm",
-      "sha256": "5528eddb13b6c04c884315537170204c358d5d1c5a0c3175f4785316a1b1bdc1"
+      "sha256": "1ef76c64e3315817a521586c561511350f22fb31fd4fc6c23b5d9de2f4834a44"
     },
     {
       "pack": "duo",
@@ -1030,9 +1078,10 @@
         256,
         362
       ],
-      "scale": 1.3409090909090908,
+      "scale": 1.5925925925925926,
+      "scalePolicy": "uniform-source-units-v2",
       "file": "packs/duo-animation/一起拎篮子.webm",
-      "sha256": "cdc8e904129a37a66e157f904f6c2e3a9f7acd1bd96dbc66cf2db75b2cb4d93b"
+      "sha256": "411ffbc7ff7837b960ae72ab7f598fea79b527f65ad5b3fa684ccb9aee11784f"
     }
   ]
 }

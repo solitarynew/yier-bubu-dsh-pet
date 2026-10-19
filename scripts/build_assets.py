@@ -34,6 +34,10 @@ LABELS = {
     's48_beihoubao': '背后抱', 's55_linlanzi': '一起拎篮子',
 }
 NAMES = {'yier': '一二', 'bubu': '布布', 'duo': '一二布布'}
+UNIFORM_SCALE = 258 / 162  # All source clips share the same character coordinate units.
+EXISTING = {}
+if (ROOT / 'assets-manifest.json').exists():
+    EXISTING = {(r['pack'], r['sourceId']): r for r in json.loads((ROOT / 'assets-manifest.json').read_text())['animations']}
 EXCLUDED = {'s18_huabanche': '素材含整条街道路面，作为透明桌宠出现矩形场景。'}
 
 
@@ -49,11 +53,16 @@ def render_clip(task):
     box = (min(b[0] for b in boxes), min(b[1] for b in boxes),
            max(b[2] for b in boxes), max(b[3] for b in boxes))
     w, h = box[2] - box[0], box[3] - box[1]
-    scale = min(236 / w, 258 / h)
+    scale = UNIFORM_SCALE
+    if w * scale > 640 or h * scale > 330:
+        raise ValueError(f'{pack}/{key}: uniform scale would crop artwork; review this source instead of shrinking it')
     size = (round(w * scale), round(h * scale))
     dest = ((640 - size[0]) // 2, 330 - size[1])
     target = PACKS / f'{pack}-animation' / f'{LABELS[key]}.webm'
     target.parent.mkdir(parents=True, exist_ok=True)
+    previous = EXISTING.get((pack, key))
+    if previous and previous.get('scale') == scale and target.exists() and hashlib.sha256(target.read_bytes()).hexdigest() == previous['sha256']:
+        return {**previous, 'scalePolicy': 'uniform-source-units-v2'}
     # Repeat source cycles to keep dsh-pet's random scheduler calm (4-8 s clips).
     loops = max(1, round(5 * fps / count))
     with tempfile.TemporaryDirectory(prefix='yier-dsh-') as tmp:
@@ -75,7 +84,7 @@ def render_clip(task):
     digest = hashlib.sha256(target.read_bytes()).hexdigest()
     return {'pack': pack, 'sourceId': key, 'name': LABELS[key], 'tags': entry['tags'],
             'sourceFrames': count, 'fps': fps, 'loops': loops,
-            'duration': loops * count / fps, 'crop': box, 'scale': scale,
+            'duration': loops * count / fps, 'crop': box, 'scale': scale, 'scalePolicy': 'uniform-source-units-v2',
             'file': str(target.relative_to(ROOT)), 'sha256': digest}
 
 
@@ -134,6 +143,27 @@ def gallery(rows):
     (ROOT / 'review/index.html').write_text(content, encoding='utf-8')
 
 
+def previews(rows):
+    lookup = {(row['pack'], row['sourceId']): row for row in rows}
+    for mode, clips in [('pair', [('yier', 's11_tiaosheng'), ('bubu', 's12_tiaosheng')]),
+                        ('duo', [('duo', 's13_baobao')])]:
+        frames = []
+        for tick in range(40):
+            canvas = Image.new('RGBA', (640, 360), '#f2efe9')
+            for slot, (pack, key) in enumerate(clips):
+                row = lookup[(pack, key)]
+                source = Image.open(SOURCE / pack / key / f"frame_{tick % row['sourceFrames']:03d}.png").convert('RGBA')
+                w, h = row['crop'][2] - row['crop'][0], row['crop'][3] - row['crop'][1]
+                art = source.crop(row['crop']).resize((round(w * row['scale']), round(h * row['scale'])), Image.Resampling.LANCZOS)
+                stage = Image.new('RGBA', (640, 360))
+                stage.alpha_composite(art, ((640 - art.width) // 2, 330 - art.height))
+                stage = stage.resize((490, 276), Image.Resampling.LANCZOS)
+                canvas.alpha_composite(stage, ((-85 if slot == 0 else 235) if mode == 'pair' else 75, 50))
+            frames.append(canvas.convert('RGB'))
+        frames[0].save(ROOT / 'review' / f'preview-{mode}.gif', save_all=True, append_images=frames[1:],
+                       duration=125, loop=0, optimize=False, disposal=2)
+
+
 def main():
     if not shutil.which('ffmpeg'):
         raise SystemExit('Install ffmpeg first')
@@ -149,6 +179,7 @@ def main():
     (ROOT / 'assets-manifest.json').write_text(json.dumps({'source': 'sources.json',
          'excluded': EXCLUDED, 'animations': rows}, ensure_ascii=False, indent=2)+'\n')
     gallery(rows)
+    previews(rows)
     print(f'Built {len(rows)} transparent VP9 clips and 3 dsh-pet packs.')
 
 

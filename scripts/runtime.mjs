@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 import os from 'node:os';
+import { sharedSize } from './appearance.mjs';
 import { applyDesktopPatch } from './patch-desktop.mjs';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -12,7 +13,7 @@ export const STATE = path.join(ROOT, '.runtime');
 export const HOME = path.join(STATE, 'home');
 export const PORT = 17340;
 export const GALLERY_PORT = 17341;
-export const CONTROL_VERSION = 3;
+export const CONTROL_VERSION = 5;
 export const MODES = {
   pair: { label: '双人版', description: '一二、布布两个独立实例，各自活动', pets: ['yier', 'bubu'] },
   duo: { label: '组合版', description: '一个实例，播放两只同框的双人表情', pets: ['duo'] },
@@ -53,6 +54,12 @@ export async function selectedMode() {
 
 export async function prepare(mode) {
   if (!MODES[mode]) throw Error('启动模式只能为 pair（双人版）或 duo（组合版）');
+  const defaults = await readJSON(path.join(ROOT, 'pet-settings.json'));
+  let preferences = {};
+  try { preferences = await readJSON(path.join(STATE, 'menu-settings.json')); } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  }
+  const size = sharedSize(preferences, defaults);
   const petRoot = path.join(HOME, 'dsh-pet', 'pet');
   await fs.mkdir(petRoot, { recursive: true });
   const main = {
@@ -67,6 +74,7 @@ export async function prepare(mode) {
   for (const pack of ['yier', 'bubu', 'duo']) {
     const conf = await readJSON(path.join(ROOT, 'packs', `${pack}-config.json`));
     for (const pet of conf.pets) {
+      pet.size = size; // Force one scale across yier, bubu and both kinds of duo scene.
       pet.display = MODES[mode].pets.includes(pack) ? 'both' : 'none';
       // Center a combined pet rather than leaving it at the third demo's position.
       if (pack === 'duo') pet.position.marginX = 390;

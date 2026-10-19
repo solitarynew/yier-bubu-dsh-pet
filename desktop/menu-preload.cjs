@@ -1,6 +1,6 @@
 'use strict';
 // A narrow bridge: read only our settings; send only allowlisted local commands.
-const { contextBridge } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -46,6 +46,17 @@ contextBridge.exposeInMainWorld('yierMenuBridge', {
     return send('/api/settings', { pet, ...settings });
   },
   reportInteraction(report) { return send('/api/interaction/report', report); },
+  setCompanionHidden(hidden, duration) {
+    if (typeof hidden === 'boolean') ipcRenderer.send('yier:companion-hidden', { hidden, duration });
+  },
+  setSize(size) {
+    if (![380, 490, 600].includes(size)) return Promise.reject(Error('无效共享大小'));
+    return send('/api/size', { size });
+  },
+  setInteractionStyle(style) {
+    if (!['mixed', 'duo', 'sync'].includes(style)) return Promise.reject(Error('无效互动方式'));
+    return send('/api/interaction/style', { style });
+  },
   setInteraction(enabled) {
     if (typeof enabled !== 'boolean') return Promise.reject(Error('无效互动设置'));
     return send('/api/interaction/setting', { enabled });

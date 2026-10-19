@@ -5,7 +5,8 @@ import { createReadStream } from 'node:fs';
 import path from 'node:path';
 import { ROOT, STATE, CONTROL_VERSION, GALLERY_PORT, PORT, currentStatus, setMode, MODES, readJSON, stop, selectedMode } from './runtime.mjs';
 
-import { InteractionCoordinator, validReport } from './interaction.mjs';
+import { SIZE_PRESETS } from './appearance.mjs';
+import { InteractionCoordinator, validReport, INTERACTION_STYLES } from './interaction.mjs';
 const interactions = new InteractionCoordinator();
 let preferences = {};
 try { preferences = await readJSON(path.join(STATE, 'menu-settings.json')); } catch (error) {
@@ -57,8 +58,8 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { root: ROOT, version: CONTROL_VERSION });
     }
     if (req.method === 'GET' && url.pathname === '/api/interaction/status') {
-      return json(res, 200, { enabled: preferences.interactionEnabled !== false, session: interactions.session,
-        peers: [...interactions.peers.values()].map(({ pet, x, y, size, busy, anim, seen }) => ({ pet, x, y, size, busy, anim, seen })) });
+      return json(res, 200, { enabled: preferences.interactionEnabled !== false, style: preferences.interactionStyle || 'mixed', session: interactions.session,
+        peers: [...interactions.peers.values()].map(({ pet, x, y, size, busy, anim, scene, hidden, seen }) => ({ pet, x, y, size, busy, anim, scene, hidden, seen })) });
     }
     if (req.method === 'GET' && url.pathname === '/api/status') return json(res, 200, await currentStatus());
     if (req.method === 'POST') {
@@ -86,12 +87,30 @@ const server = http.createServer(async (req, res) => {
       if (url.pathname === '/api/interaction/setting') {
         if (typeof data.enabled !== 'boolean') return json(res, 400, { error: '无效互动设置' });
         await updatePreferences({ interactionEnabled: data.enabled });
-        interactions.configure(data.enabled, await selectedMode());
+        interactions.configure(data.enabled, await selectedMode(), preferences.interactionStyle);
         return json(res, 200, { enabled: data.enabled });
+      }
+      if (url.pathname === '/api/size') {
+        if (!SIZE_PRESETS.includes(data.size)) return json(res, 400, { error: '无效共享大小' });
+        if (changingMode) return json(res, 409, { error: '正在重载桌宠，请稍候' });
+        changingMode = true;
+        try {
+          await updatePreferences({ sharedSize: data.size });
+          const mode = await selectedMode();
+          const status = await setMode(mode);
+          interactions.reset();
+          return json(res, 200, { ...status, size: data.size });
+        } finally { changingMode = false; }
+      }
+      if (url.pathname === '/api/interaction/style') {
+        if (!INTERACTION_STYLES.includes(data.style)) return json(res, 400, { error: '无效互动方式' });
+        await updatePreferences({ interactionStyle: data.style });
+        interactions.configure(preferences.interactionEnabled !== false, await selectedMode(), data.style);
+        return json(res, 200, { style: data.style });
       }
       if (url.pathname === '/api/interaction/report') {
         if (!validReport(data)) return json(res, 400, { error: '无效互动位置' });
-        interactions.configure(preferences.interactionEnabled !== false, await selectedMode());
+        interactions.configure(preferences.interactionEnabled !== false, await selectedMode(), preferences.interactionStyle);
         const result = interactions.report(data);
         if (result.session && result.session.id !== lastLoggedSession) {
           lastLoggedSession = result.session.id;
@@ -105,7 +124,7 @@ const server = http.createServer(async (req, res) => {
         changingMode = true;
         try {
           const status = await setMode(data.mode);
-          interactions.configure(preferences.interactionEnabled !== false, data.mode);
+          interactions.configure(preferences.interactionEnabled !== false, data.mode, preferences.interactionStyle);
           return json(res, 200, status);
         }
         finally { changingMode = false; }

@@ -1,18 +1,24 @@
 /** Coordinates two independent renderer processes; no filesystem or Electron dependencies. */
-export const ROUTINES = [
-  { label: '比心回应', clips: { yier: '比心', bubu: '撒花' }, duration: 4000 },
-  { label: '想你啦', clips: { yier: '围巾舞', bubu: '看一二照片' }, duration: 3600 },
-  { label: '一起跳绳', clips: { yier: '跳绳', bubu: '跳绳' }, duration: 4500 },
-];
+export const SYNC_ROUTINES = [
+  ['跳绳', 4500], ['收拾行李', 5000], ['躺着玩手机', 5100],
+  ['玩具车', 5000], ['好累呀', 4700], ['坐着发呆', 5900],
+].map(([name, duration]) => ({ kind: 'sync', label: '一起' + name,
+  clips: { yier: name, bubu: name }, duration }));
+export const DUO_ROUTINES = [
+  ['抱抱', 5200], ['亲亲', 5200], ['一起自拍', 4700], ['背后抱', 4200],
+].map(([name, duration]) => ({ kind: 'duo', label: name, duoAnim: name, duration }));
+// Default: an obvious merged scene first, then a same-action scene; repeat with new clips.
+export const ROUTINES = DUO_ROUTINES.flatMap((scene, index) => [scene, SYNC_ROUTINES[index]]);
+export const INTERACTION_STYLES = ['mixed', 'duo', 'sync'];
 export class InteractionCoordinator {
   constructor() { this.reset(); this.serial = 0; this.routine = 0; }
   reset() {
     this.peers = new Map(); this.session = null; this.nearSince = null;
     this.farSince = null; this.armed = true; this.cooldownUntil = 0;
   }
-  configure(enabled, mode) {
-    if (this.enabled !== enabled || this.mode !== mode) this.reset();
-    this.enabled = enabled; this.mode = mode;
+  configure(enabled, mode, style = 'mixed') {
+    if (this.enabled !== enabled || this.mode !== mode || this.style !== style) { this.reset(); this.routine = 0; }
+    this.enabled = enabled; this.mode = mode; this.style = style;
   }
   report(data, now = Date.now()) {
     if (!this.enabled || this.mode !== 'pair') return { enabled: this.enabled, session: null };
@@ -35,10 +41,12 @@ export class InteractionCoordinator {
     else if (!this.session && this.armed && now >= this.cooldownUntil) {
       this.nearSince ??= now;
       if (now - this.nearSince >= 800) {
-        const routine = ROUTINES[this.routine++ % ROUTINES.length];
+        const pool = this.style === 'sync' ? SYNC_ROUTINES : this.style === 'duo' ? DUO_ROUTINES : ROUTINES;
+        const routine = pool[this.routine++ % pool.length];
         const startAt = now + 600;
         this.session = { id: `${now}-${++this.serial}`, label: routine.label,
-          clips: routine.clips, startAt, endAt: startAt + routine.duration,
+          kind: routine.kind, clips: routine.clips, duoAnim: routine.duoAnim,
+          anchor: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }, startAt, endAt: startAt + routine.duration,
           facing: { yier: a.x < b.x ? 'right' : 'left', bubu: a.x < b.x ? 'left' : 'right' } };
         this.armed = false; this.cooldownUntil = startAt + routine.duration + 18000;
         this.nearSince = null;

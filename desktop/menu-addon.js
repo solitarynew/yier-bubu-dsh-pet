@@ -33,7 +33,7 @@
     build(sprite, actionTree) {
       initialize(sprite);
       return window.YierMenuModel.build({ mode: bridge.state().mode, pinned: sprite._yierPinned,
-        interactionEnabled: bridge.state().settings.interactionEnabled !== false, anim: sprite.anim, roam: sprite._yierRoam, animations: sprite.animations, actionTree });
+        interactionStyle: bridge.state().settings.interactionStyle || 'mixed', interactionEnabled: bridge.state().settings.interactionEnabled !== false, size: sprite.size, anim: sprite.anim, roam: sprite._yierRoam, animations: sprite.animations, actionTree });
     },
     handle(sprite, leaf) {
       initialize(sprite);
@@ -43,6 +43,10 @@
       }
       if (leaf.action?.startsWith('yier-mode-')) {
         bridge.setMode(leaf.action.slice('yier-mode-'.length)).catch(error => fail(sprite, error));
+      } else if (leaf.action?.startsWith('yier-size-')) {
+        bridge.setSize(Number(leaf.action.slice('yier-size-'.length))).catch(error => fail(sprite, error));
+      } else if (leaf.action?.startsWith('yier-style-')) {
+        bridge.setInteractionStyle(leaf.action.slice('yier-style-'.length)).catch(error => fail(sprite, error));
       } else if (leaf.action === 'yier-interaction') {
         const enabled = bridge.state().settings.interactionEnabled === false;
         bridge.setInteraction(enabled).catch(error => fail(sprite, error));

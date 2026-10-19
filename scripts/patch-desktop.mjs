@@ -12,7 +12,7 @@ export async function applyDesktopPatch() {
   const helper = path.join(packageRoot, 'runtime/electron-helper');
   const originals = path.join(helper, '.yier-originals');
   await fs.mkdir(originals, { recursive: true });
-  for (const name of ['sprite.js', 'preload.js', 'index.html']) {
+  for (const name of ['sprite.js', 'preload.js', 'index.html', 'main.js', 'shared-core.js', 'pointer-target.js']) {
     const file = path.join(helper, name);
     const current = await fs.readFile(file, 'utf8');
     let base;
@@ -32,6 +32,14 @@ export async function applyDesktopPatch() {
         .replace(mountAnchor, 'window.YierMenu.decorate(m.el);\n    ' + mountAnchor);
     } else if (name === 'preload.js') {
       next = MARKER + '\n' + base + "\nrequire('./yier-menu-preload.cjs');\n";
+    } else if (name === 'shared-core.js' || name === 'pointer-target.js') {
+      const anchor = name === 'shared-core.js'
+        ? 'const HIT_BOX = {\n\tx0: 200,\n\ty0: 50,\n\tx1: 440,\n\ty1: 335\n};'
+        : 'const HIT_BOX = { x0: 200, y0: 50, x1: 440, y1: 335 };';
+      if (base.split(anchor).length !== 2) throw Error('桌面命中区域代码不匹配，已停止打补丁');
+      next = MARKER + '\n' + base.replace(anchor, anchor.replace('200', '128').replace('440', '512'));
+    } else if (name === 'main.js') {
+      next = MARKER + '\n' + base + "\nrequire('./yier-interaction-main.cjs')({ ipcMain, BrowserWindow });\n";
     } else {
       const anchor = '<script src="./sprite.js"></script>';
       if (base.split(anchor).length !== 2) throw Error('框架 HTML 加载顺序不匹配，已停止打补丁');
@@ -43,7 +51,11 @@ export async function applyDesktopPatch() {
     if (current !== next) await fs.writeFile(file, next);
   }
   for (const [source, target] of [['menu-model.js', 'yier-menu-model.js'],
-    ['menu-addon.js', 'yier-menu-addon.js'], ['interaction-addon.js', 'yier-interaction-addon.js'], ['menu-preload.cjs', 'yier-menu-preload.cjs']]) {
+    ['menu-addon.js', 'yier-menu-addon.js'], ['interaction-main.cjs', 'yier-interaction-main.cjs'], ['interaction-addon.js', 'yier-interaction-addon.js'], ['menu-preload.cjs', 'yier-menu-preload.cjs']]) {
     await fs.copyFile(path.join(ROOT, 'desktop', source), path.join(helper, target));
   }
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  await applyDesktopPatch();
 }

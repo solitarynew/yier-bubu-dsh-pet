@@ -26,7 +26,7 @@ test('only the selected animation is marked without marking categories or mutati
   assert.equal(actions.children[0].label, '开心');
   assert.equal(actions.children[0].children[0].label, '✓ 比心');
   assert.equal(JSON.stringify(tree), before);
-  assert.equal(menu[1].label.startsWith('✓ '), false);
+  assert.equal(menu.find(item => item.action === 'yier-roam').label.startsWith('✓ '), false);
 });
 
 function fake(preferences = {}) {
@@ -89,4 +89,24 @@ test('interaction toggle reflects enabled state and is present only for independ
   }
   const menu = model.build({ mode: 'duo', anim: '比心', roam: true, actionTree: tree });
   assert.equal(menu.some(item => item.action === 'yier-interaction'), false);
+});
+
+
+test('exactly one interaction style is marked',()=>{
+  for(const style of ['mixed','duo','sync']) {
+    const menu=model.build({mode:'pair',interactionStyle:style,anim:'比心',roam:true,actionTree:tree});
+    const styles=menu.find(item=>item.label==='互动方式').children;
+    assert.equal(styles.filter(item=>item.label.startsWith('✓ ')).length,1);
+    assert.equal(styles.find(item=>item.label.startsWith('✓ ')).action,'yier-style-'+style);
+  }
+});
+
+
+test('shared size menu marks exactly one preset for both roles and combined mode',()=>{
+  for(const mode of ['pair','duo']) {
+    const menu=model.build({mode,size:600,anim:'比心',roam:true,actionTree:tree});
+    const sizes=menu.find(item=>item.label.startsWith('大小')).children;
+    assert.equal(sizes.filter(item=>item.label.startsWith('✓ ')).length,1);
+    assert.equal(sizes.find(item=>item.label.startsWith('✓ ')).action,'yier-size-600');
+  }
 });

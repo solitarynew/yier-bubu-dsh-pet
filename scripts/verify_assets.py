@@ -26,7 +26,13 @@ def verify_clip(row):
     image = Image.frombytes('RGBA', (640, 360), raw)
     assert image.getchannel('A').getextrema() == (0, 255), path
     bbox = image.getchannel('A').getbbox()
-    assert bbox and bbox[0] >= 190 and bbox[2] <= 450 and bbox[3] <= 332, (path, bbox)
+    expected_w = round((row['crop'][2] - row['crop'][0]) * row['scale'])
+    expected_h = round((row['crop'][3] - row['crop'][1]) * row['scale'])
+    expected_x, expected_y = (640 - expected_w) // 2, 330 - expected_h
+    assert row['scale'] == 258 / 162, path
+    assert bbox and expected_x <= bbox[0] < bbox[2] <= expected_x + expected_w, (path, bbox)
+    assert expected_y <= bbox[1] < bbox[3] <= 330, (path, bbox)
+    assert bbox[0] >= 128 and bbox[2] <= 512 and bbox[1] >= 50 and bbox[3] <= 335, (path, bbox)
     return {'file': row['file'], 'duration': info['format']['duration'], 'alpha': True}
 
 
@@ -58,7 +64,7 @@ def main():
         checks = list(executor.map(verify_clip, rows))
     report = {'passed': True, 'clips': len(checks), 'framework': 'dsh-pet@0.3.7',
               'checks': ['manifest hashes', 'all menu references', 'VP9 codec', '640x360 canvas',
-                         'source-derived duration', 'actual decoded alpha channel', 'body within hit box'],
+                         'source-derived duration', 'actual decoded alpha channel', 'uniform character scale', 'body within expanded desktop hit box'],
               'results': checks}
     (ROOT/'review/verification.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n')
     print(f'PASS: {len(checks)} real decoded alpha videos; all 3 pack references complete.')
