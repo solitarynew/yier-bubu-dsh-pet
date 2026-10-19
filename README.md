@@ -13,7 +13,7 @@
 
 当前正式提供 **macOS 体验包**，已在 Apple Silicon Mac 验证。需要先安装 **[Node.js LTS](https://nodejs.org/)（22.12 或更新版本）**。
 
-1. 在 [Releases](https://github.com/solitarynew/yier-bubu-dsh-pet/releases/latest) 下载 `yier-bubu-dsh-pet-macos.zip`，完整解压到一个固定目录。
+1. 在 [Releases](https://github.com/solitarynew/yier-bubu-dsh-pet/releases/latest) 下载 **Source code (zip)**，完整解压到一个固定目录。这个 ZIP 已包含全部成品动画和启动脚本。
 2. 双击 **`一键安装启动.command`**。
 3. 首次运行会安装固定版本的 dsh-pet、下载并校验 Electron，然后显示桌宠并打开本地预览页。以后双击同一个文件即可启动。
 
