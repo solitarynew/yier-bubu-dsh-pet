@@ -37,6 +37,12 @@ function send(route, payload) {
 }
 contextBridge.exposeInMainWorld('yierMenuBridge', {
   state,
+  pollStatus() { return send('/api/status-sync/poll', {}); },
+  setStatusSync(source,enabled) {
+    if (!['codex','dsh'].includes(source) || typeof enabled!=='boolean') return Promise.reject(Error('无效同步设置'));
+    return send('/api/status-sync/setting',{source,enabled});
+  },
+  openSyncSettings() { ipcRenderer.send('yier:open-sync-settings'); },
   setMode(mode) {
     if (!['pair', 'duo'].includes(mode)) return Promise.reject(Error('无效模式'));
     return send('/api/mode', { mode });

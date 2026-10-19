@@ -39,19 +39,20 @@ export async function applyDesktopPatch() {
       if (base.split(anchor).length !== 2) throw Error('桌面命中区域代码不匹配，已停止打补丁');
       next = MARKER + '\n' + base.replace(anchor, anchor.replace('200', '128').replace('440', '512'));
     } else if (name === 'main.js') {
-      next = MARKER + '\n' + base + "\nrequire('./yier-interaction-main.cjs')({ ipcMain, BrowserWindow });\n";
+      next = MARKER + '\n' + base + "\nrequire('./yier-interaction-main.cjs')({ ipcMain, BrowserWindow, shell });\n";
     } else {
       const anchor = '<script src="./sprite.js"></script>';
       if (base.split(anchor).length !== 2) throw Error('框架 HTML 加载顺序不匹配，已停止打补丁');
       next = base.replace(anchor, anchor + '\n    <!-- ' + MARKER + ' -->\n' +
         '    <script src="./yier-menu-model.js"></script>\n' +
         '    <script src="./yier-menu-addon.js"></script>\n' +
-        '    <script src="./yier-interaction-addon.js"></script>');
+        '    <script src="./yier-interaction-addon.js"></script>\n' +
+        '    <script src="./yier-status-sync-addon.js"></script>');
     }
     if (current !== next) await fs.writeFile(file, next);
   }
   for (const [source, target] of [['menu-model.js', 'yier-menu-model.js'],
-    ['menu-addon.js', 'yier-menu-addon.js'], ['interaction-main.cjs', 'yier-interaction-main.cjs'], ['interaction-addon.js', 'yier-interaction-addon.js'], ['menu-preload.cjs', 'yier-menu-preload.cjs']]) {
+    ['menu-addon.js', 'yier-menu-addon.js'], ['status-sync-addon.js', 'yier-status-sync-addon.js'], ['interaction-main.cjs', 'yier-interaction-main.cjs'], ['interaction-addon.js', 'yier-interaction-addon.js'], ['menu-preload.cjs', 'yier-menu-preload.cjs']]) {
     await fs.copyFile(path.join(ROOT, 'desktop', source), path.join(helper, target));
   }
 }

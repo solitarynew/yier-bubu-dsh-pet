@@ -1,6 +1,10 @@
 'use strict';
 // Hide only the sending companion window, with an independent recovery deadline.
-module.exports = function install({ ipcMain, BrowserWindow }) {
+module.exports = function install({ ipcMain, BrowserWindow, shell }) {
+  ipcMain.on('yier:open-sync-settings', () => {
+    const directory=process.env.YIER_BUBU_STATE_DIR;
+    if(directory && shell)void shell.openPath(require('node:path').join(directory,'status-sync.json'));
+  });
   const hidden = new Map();
   const observed = new WeakSet();
   function restore(win) {

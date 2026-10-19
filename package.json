@@ -1,6 +1,6 @@
 {
   "name": "yier-bubu-dsh-pet",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "description": "一二布布桌宠：基于 dsh-pet 的双人版与组合版，右键控制与可开关靠近互动",
   "dependencies": {

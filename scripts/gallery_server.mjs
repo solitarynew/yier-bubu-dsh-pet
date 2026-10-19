@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 import http from 'node:http';
+import { randomBytes, timingSafeEqual } from 'node:crypto';
 import fs from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
 import path from 'node:path';
 import { ROOT, STATE, CONTROL_VERSION, GALLERY_PORT, PORT, currentStatus, setMode, MODES, readJSON, stop, selectedMode } from './runtime.mjs';
 
+import { StatusSync, SOURCES, parseDshState, dshStateUrl } from './status-sync.mjs';
+import { installCodexHooks } from './install-codex-hooks.mjs';
 import { SIZE_PRESETS } from './appearance.mjs';
 import { InteractionCoordinator, validReport, INTERACTION_STYLES } from './interaction.mjs';
 const interactions = new InteractionCoordinator();
@@ -12,6 +15,29 @@ let preferences = {};
 try { preferences = await readJSON(path.join(STATE, 'menu-settings.json')); } catch (error) {
   if (error.code !== 'ENOENT') throw error;
 }
+const syncConfigFile = path.join(STATE, 'status-sync.json');
+try { await fs.access(syncConfigFile); } catch { await fs.copyFile(path.join(ROOT,'status-sync.json'),syncConfigFile); }
+const syncConfig = await readJSON(syncConfigFile);
+const statusSync = new StatusSync(syncConfig);
+for(const source of SOURCES)statusSync.enable(source,preferences[source === 'codex' ? 'syncCodex' : 'syncDsh'] === true);
+const syncToken = randomBytes(32).toString('hex');
+await fs.writeFile(path.join(STATE,'status-sync.token'),syncToken,{mode:0o600});
+let dshPolling = false;
+async function pollDsh() {
+  if(dshPolling || !statusSync.sources.dsh.enabled)return;
+  dshPolling=true;
+  try {
+    const config=await readJSON(syncConfigFile);
+    const response=await fetch(dshStateUrl(config.dshStateUrl),{signal:AbortSignal.timeout(1200),redirect:'error'});
+    if(!response.ok)throw Error('DSH HTTP '+response.status);
+    let text='';
+    for await(const chunk of response.body){text+=Buffer.from(chunk).toString();if(text.length>262144)throw Error('DSH 响应过大');}
+    const state=parseDshState(JSON.parse(text));statusSync.push('dsh',state);
+  } catch(error) {statusSync.disconnect('dsh',error.message.startsWith('DSH HTTP')?error.message:'未连接');}
+  finally {dshPolling=false;}
+}
+const syncPollTimer=setInterval(()=>void pollDsh(),2000);syncPollTimer.unref();
+void pollDsh();
 function updatePreferences(update) {
   const write = settingsQueue.then(async () => {
     const next = { ...preferences, ...update };
@@ -61,6 +87,7 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { enabled: preferences.interactionEnabled !== false, style: preferences.interactionStyle || 'mixed', session: interactions.session,
         peers: [...interactions.peers.values()].map(({ pet, x, y, size, busy, anim, scene, hidden, seen }) => ({ pet, x, y, size, busy, anim, scene, hidden, seen })) });
     }
+    if (req.method === 'GET' && url.pathname === '/api/status-sync') return json(res,200,statusSync.snapshot());
     if (req.method === 'GET' && url.pathname === '/api/status') return json(res, 200, await currentStatus());
     if (req.method === 'POST') {
       const allowedOrigins = [`http://127.0.0.1:${GALLERY_PORT}`, `http://localhost:${GALLERY_PORT}`];
@@ -69,6 +96,22 @@ const server = http.createServer(async (req, res) => {
         return json(res, 415, { error: '需要 application/json' });
       }
       const data = await body(req);
+      if(url.pathname === '/api/status-sync/poll')return json(res,200,statusSync.snapshot());
+      if(url.pathname === '/api/status-sync/setting') {
+        if(!SOURCES.includes(data.source)||typeof data.enabled!=='boolean')return json(res,400,{error:'无效状态同步设置'});
+        let hooks;
+        if(data.source==='codex' && data.enabled)hooks=await installCodexHooks();
+        await updatePreferences({[data.source==='codex'?'syncCodex':'syncDsh']:data.enabled});
+        statusSync.enable(data.source,data.enabled);
+        if(data.source==='dsh'&&data.enabled)await pollDsh();
+        return json(res,200,{...statusSync.snapshot(),hooks});
+      }
+      if(url.pathname === '/api/status-sync/event') {
+        const candidate=Buffer.from(req.headers['x-yier-sync-token']||'');
+        const expected=Buffer.from(syncToken);
+        if(candidate.length!==expected.length||!timingSafeEqual(candidate,expected))return json(res,403,{error:'无效状态事件令牌'});
+        return json(res,200,{accepted:statusSync.push('codex',data)});
+      }
       if (url.pathname === '/api/quit') {
         json(res, 200, { ok: true });
         setTimeout(() => stop().catch(error => console.error(error)), 150);

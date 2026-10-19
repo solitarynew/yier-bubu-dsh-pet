@@ -32,8 +32,11 @@
     },
     build(sprite, actionTree) {
       initialize(sprite);
+      const settings=bridge.state().settings;
+      const syncView=sprite._yierSyncView || Object.fromEntries([['codex','syncCodex'],['dsh','syncDsh']].map(([source,key])=>
+        [source,{enabled:settings[key]===true,label:settings[key]===true?'等待连接':'已关闭'}]));
       return window.YierMenuModel.build({ mode: bridge.state().mode, pinned: sprite._yierPinned,
-        interactionStyle: bridge.state().settings.interactionStyle || 'mixed', interactionEnabled: bridge.state().settings.interactionEnabled !== false, size: sprite.size, anim: sprite.anim, roam: sprite._yierRoam, animations: sprite.animations, actionTree });
+        interactionStyle: bridge.state().settings.interactionStyle || 'mixed', interactionEnabled: bridge.state().settings.interactionEnabled !== false, statusSync: syncView, size: sprite.size, anim: sprite.anim, roam: sprite._yierRoam, animations: sprite.animations, actionTree });
     },
     handle(sprite, leaf) {
       initialize(sprite);
@@ -43,6 +46,12 @@
       }
       if (leaf.action?.startsWith('yier-mode-')) {
         bridge.setMode(leaf.action.slice('yier-mode-'.length)).catch(error => fail(sprite, error));
+      } else if (leaf.action === 'yier-sync-settings') {
+        bridge.openSyncSettings();
+      } else if (leaf.action === 'yier-sync-codex' || leaf.action === 'yier-sync-dsh') {
+        const source=leaf.action.slice('yier-sync-'.length);
+        const enabled=bridge.state().settings[source==='codex'?'syncCodex':'syncDsh'] !== true;
+        bridge.setStatusSync(source,enabled).then(data=>{sprite._yierSyncView=data.sources;}).catch(error=>fail(sprite,error));
       } else if (leaf.action?.startsWith('yier-size-')) {
         bridge.setSize(Number(leaf.action.slice('yier-size-'.length))).catch(error => fail(sprite, error));
       } else if (leaf.action?.startsWith('yier-style-')) {

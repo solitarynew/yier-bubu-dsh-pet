@@ -110,3 +110,11 @@ test('shared size menu marks exactly one preset for both roles and combined mode
     assert.equal(sizes.find(item=>item.label.startsWith('✓ ')).action,'yier-size-600');
   }
 });
+
+test('Codex and DSH have independent checked states and explicit connection labels',()=>{
+ const menu=model.build({mode:'pair',anim:'比心',roam:true,actionTree:tree,statusSync:{codex:{enabled:true,label:'等待 Codex 事件'},dsh:{enabled:false,label:'已关闭'}}});
+ const children=menu.find(item=>item.label==='状态同步').children;
+ assert.match(children[0].label,/^✓ 同步 Codex 状态 · 等待/);
+ assert.equal(children[1].label.startsWith('✓ '),false);
+ assert.equal(children[2].action,'yier-sync-settings');
+});

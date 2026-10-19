@@ -13,7 +13,7 @@ export const STATE = path.join(ROOT, '.runtime');
 export const HOME = path.join(STATE, 'home');
 export const PORT = 17340;
 export const GALLERY_PORT = 17341;
-export const CONTROL_VERSION = 5;
+export const CONTROL_VERSION = 6;
 export const MODES = {
   pair: { label: '双人版', description: '一二、布布两个独立实例，各自活动', pets: ['yier', 'bubu'] },
   duo: { label: '组合版', description: '一个实例，播放两只同框的双人表情', pets: ['duo'] },

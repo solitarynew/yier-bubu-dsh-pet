@@ -1,0 +1,5 @@
+{
+  "dshStateUrl": "http://127.0.0.1:3000/dsh-pet-7340/state",
+  "staleSeconds": 180,
+  "terminalSeconds": 8
+}
