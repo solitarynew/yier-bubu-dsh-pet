@@ -14,11 +14,11 @@ export const STATE = path.join(ROOT, '.runtime');
 export const HOME = path.join(STATE, 'home');
 export const PORT = 17340;
 export const GALLERY_PORT = 17341;
-export const CONTROL_VERSION = 9;
+export const CONTROL_VERSION = 10;
 export const MODES = {
   pair: { label: '双人版', description: '一二、布布两个独立实例，各自活动', pets: ['yier', 'bubu'] },
   duo: { label: '组合版', description: '一个实例，播放两只同框的双人表情', pets: ['duo'] },
-  'keyboard-pair': { label: '键盘同步 · 一二和布布', description: '两只熊各自陪你打字', pets: ['yier', 'bubu'], keyboard: true },
+  'keyboard-pair': { label: '键盘同步 · 一二和布布', description: '原图双熊同框，一起陪你打字', pets: ['duo'], keyboard: true },
   'keyboard-yier': { label: '键盘同步 · 只有一二', description: '一二陪你打字', pets: ['yier'], keyboard: true },
   'keyboard-bubu': { label: '键盘同步 · 只有布布', description: '布布陪你打字', pets: ['bubu'], keyboard: true },
 };
@@ -84,11 +84,10 @@ export async function prepare(mode) {
       pet.display = MODES[mode].pets.includes(pack) ? 'both' : 'none';
       if (MODES[mode].keyboard) {
         pet.fixedEnabled = true;
-        // Keep the two keyboards apart; a solo bear starts in the first position.
-        pet.position.marginX = mode === 'keyboard-pair' && pack === 'bubu' ? 440 : 20;
+        pet.position.marginX = 20;
       }
       // Center a combined pet rather than leaving it at the third demo's position.
-      if (pack === 'duo') pet.position.marginX = 390;
+      if (pack === 'duo' && !MODES[mode].keyboard) pet.position.marginX = 390;
     }
     await writeJSON(path.join(petRoot, `${pack}-config.json`), conf);
     const link = path.join(petRoot, `${pack}-animation`);

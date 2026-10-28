@@ -68,6 +68,7 @@ export async function applyDesktopPatch() {
     try { await fs.copyFile(path.join(KEYBOARD_ART, file), path.join(helper, 'keyboard-art', file)); }
     catch (error) { if (error.code !== 'ENOENT') throw error; } // Ordinary modes need no reference download.
   }
+  await fs.copyFile(path.join(ROOT, 'desktop/keyboard-art/characters-cutout.png'), path.join(helper, 'keyboard-art/characters-cutout.png'));
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

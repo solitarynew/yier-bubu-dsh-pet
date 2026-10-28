@@ -24,7 +24,7 @@
   }
   function build({ mode, pinned, anim, roam, size = 490, interactionEnabled = true, interactionStyle = 'mixed', statusSync = {}, keyboard = {}, platform = 'win32', animations, actionTree = [] }) {
     const typing = mode?.startsWith('keyboard-');
-    const keyboardRoles = [['keyboard-pair', '一二和布布（两只熊）'], ['keyboard-yier', '只有一二'], ['keyboard-bubu', '只有布布']];
+    const keyboardRoles = [['keyboard-pair', '一二和布布（原图同框）'], ['keyboard-yier', '只有一二'], ['keyboard-bubu', '只有布布']];
     const modes = { label: `启动模式 · ${typing ? '键盘同步' : mode === 'duo' ? '组合版' : '双人版'}`, children: Object.entries(MODES).map(([key, label]) =>
       ({ label: checked(label, mode === key), action: 'yier-mode-' + key })) };
     if (platform === 'win32') modes.children.push({ label: checked('键盘同步', typing), children: keyboardRoles.map(([key, label]) =>

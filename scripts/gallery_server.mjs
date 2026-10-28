@@ -204,7 +204,7 @@ const server = http.createServer(async (req, res) => {
     const file = referenceFile ? path.join(KEYBOARD_ART, relative.slice('/keyboard-assets/'.length)) : path.resolve(ROOT, '.' + relative);
     const rootRelative = path.relative(ROOT, file);
     const keyboardAsset = ['desktop/keyboard-model.js', 'desktop/keyboard-art.js', 'desktop/keyboard-scene.js',
-      'desktop/keyboard-scene.css'].includes(rootRelative.split(path.sep).join('/'));
+      'desktop/keyboard-scene.css', 'desktop/keyboard-art/characters-cutout.png'].includes(rootRelative.split(path.sep).join('/'));
     if (rootRelative.startsWith('..') || (!referenceFile && !keyboardAsset && !['review', 'packs'].includes(rootRelative.split(path.sep)[0]))) {
       return json(res, 404, { error: '文件不存在' });
     }

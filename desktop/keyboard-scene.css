@@ -4,6 +4,7 @@
 .kb-scene .kb-head{transform-origin:320px 212px}
 .kb-scene .kb-zzz,.kb-scene .kb-love{display:none}
 .kb-scene .kb-key rect{fill:var(--key);stroke:var(--key-stroke);stroke-width:1.3}
+.kb-scene .kb-key .kb-key-side{fill:#dcc2a7}
 .kb-scene .kb-key text{fill:#674b40;font-size:16px;font-weight:650;text-anchor:middle;dominant-baseline:middle}
 .kb-scene .kb-key.is-down rect{fill:var(--accent);stroke:var(--accent-edge);stroke-width:2.2}
 .kb-scene .kb-key.is-down{transform:translateY(1.7px)}
@@ -18,6 +19,9 @@
 .kb-scene.is-paused .kb-head{animation:kb-breathe 5s ease-in-out infinite}
 .kb-scene.no-effects *{animation:none!important}
 .kb-scene.no-effects .kb-love,.kb-scene.no-effects .kb-zzz{display:none}
+.kb-scene.no-effects .kb-head{transform:none}
+.kb-scene.kb-reference .kb-head{animation:none;transform:none}
+.kb-scene.kb-reference .kb-message{font-size:25px}
 @keyframes kb-breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(2px)}}
 @keyframes kb-tap{from{transform:translateY(0)}to{transform:translateY(1.7px)}}
 @keyframes kb-dream{0%,100%{opacity:.45;transform:translateY(2px)}50%{opacity:1;transform:translateY(-3px)}}

@@ -8,7 +8,7 @@
     sprite.anim = '键盘同步';
     sprite.stage.classList.add('is-keyboard');
     for (const video of [sprite.videoA, sprite.videoB]) { video.pause(); video.style.display = 'none'; }
-    const scene = window.YierKeyboardScene.mount(sprite.stage, { pet: sprite.pet.id,
+    const scene = window.YierKeyboardScene.mount(sprite.stage, { pet: bridge.state().mode === 'keyboard-pair' ? 'pair' : sprite.pet.id,
       effects: bridge.state().settings.keyboardEffects !== false });
     sprite._yierKeyboard = scene;
     sprite._yierKeyboardOff = bridge.onKeyboard(frame => { sprite._yierKeyboardView = frame; scene.receive(frame); });

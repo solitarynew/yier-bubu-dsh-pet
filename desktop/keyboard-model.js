@@ -18,7 +18,9 @@
   const MATRIX = [195 / 376, 55 / 376, -46 / 126, 44 / 126,
     235 - 132 * 195 / 376 + 205 * 46 / 126, 218 - 132 * 55 / 376 - 205 * 44 / 126];
   const project = (x, y) => ({ x: MATRIX[0] * x + MATRIX[2] * y + MATRIX[4], y: MATRIX[1] * x + MATRIX[3] * y + MATRIX[5] });
-  const SHOULDERS = { left: { x: 287, y: 199 }, right: { x: 377, y: 229 } };
+  const REFERENCE_MATRIX = [740 / 376, 235 / 376, -130 / 126, 125 / 126,
+    650 - 132 * 740 / 376 + 205 * 130 / 126, 650 - 132 * 235 / 376 - 205 * 125 / 126];
+  const referenceProject = (x, y) => ({ x: REFERENCE_MATRIX[0] * x + REFERENCE_MATRIX[2] * y + REFERENCE_MATRIX[4], y: REFERENCE_MATRIX[1] * x + REFERENCE_MATRIX[3] * y + REFERENCE_MATRIX[5] });
   function keyPoint(id, hand) {
     const key = BY_ID[id];
     // Both sides of the wide space bar are valid contacts, within each short arm's reach.
@@ -30,9 +32,12 @@
     // The bottom of the mitten touches the key, rather than putting its centre on the key.
     const tip = PAW_TIPS[pet][hand];
     const end = { x: contact.x - tip.x, y: contact.y - tip.y };
-    const start = SHOULDERS[hand];
-    const control = { x: (start.x + end.x) / 2 + (hand === 'left' ? -5 : 5), y: (start.y + end.y) / 2 - 3 };
-    return { start, control, end, contact };
+    return { end, contact };
+  }
+  function referenceKeyPoint(id, hand) {
+    const key = BY_ID[id];
+    const x = id === 'Space' ? key.x + key.w * (hand === 'left' ? .2 : .8) : key.x + key.w / 2;
+    return referenceProject(x, key.y + key.h / 2);
   }
   const pressed = mask => IDS.filter((_id, index) => ((mask >>> index) & 1) === 1);
   class Scene {
@@ -51,7 +56,7 @@
         if (added.includes('Space')) this.spaceHand = this.spaceHand === 'left' ? 'right' : 'left';
         for (const id of added) {
           const key = BY_ID[id], hand = id === 'Space' ? this.spaceHand : key.hand;
-          this.latched[hand] = { ...keyPoint(id, hand), down: true, until: now + 110 };
+          this.latched[hand] = { ...keyPoint(id, hand), id, down: true, until: now + 110 };
         }
         this.reaction = added.includes('Enter') ? 'love' : added.includes('Backspace') ? 'think' : this.recent.length >= 7 ? 'joy' : 'focus';
         this.reactionUntil = now + (this.reaction === 'love' ? 1200 : 800);
@@ -61,8 +66,8 @@
     paw(hand, now = Date.now()) {
       const id = [...this.active].reverse().find(id => BY_ID[id].hand === hand || (id === 'Space' && this.spaceHand === hand));
       const key = BY_ID[id];
-      return key ? { ...keyPoint(id, hand), down: true }
-        : this.latched[hand]?.until > now ? this.latched[hand] : { ...keyPoint(hand === 'left' ? 'F' : 'J', hand), down: false };
+      return key ? { ...keyPoint(id, hand), id, down: true }
+        : this.latched[hand]?.until > now ? this.latched[hand] : { ...keyPoint(hand === 'left' ? 'F' : 'J', hand), id: null, down: false };
     }
     mood(now) {
       if (this.active.length) return this.reactionUntil > now ? this.reaction : 'focus';
@@ -71,7 +76,7 @@
     }
     clear() { this.active = []; this.latched = {}; this.recent = []; this.reactionUntil = 0; }
   }
-  const api = { IDS, KEYS, BY_ID, MATRIX, project, SHOULDERS, PAW_TIPS, keyPoint, pawPose, pressed, Scene };
+  const api = { IDS, KEYS, BY_ID, MATRIX, project, REFERENCE_MATRIX, referenceProject, referenceKeyPoint, PAW_TIPS, keyPoint, pawPose, pressed, Scene };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.YierKeyboardModel = api;
 })(typeof window === 'undefined' ? globalThis : window);

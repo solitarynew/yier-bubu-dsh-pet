@@ -2,7 +2,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { EventEmitter } = require('node:events');
 const { KeyboardInput } = require('../desktop/keyboard-input.cjs');
-const { IDS, KEYS, BY_ID, PAW_TIPS, project, keyPoint, pawPose, pressed, Scene } = require('../desktop/keyboard-model.js');
+const { IDS, KEYS, BY_ID, PAW_TIPS, project, referenceProject, referenceKeyPoint, keyPoint, pawPose, pressed, Scene } = require('../desktop/keyboard-model.js');
 const menu = require('../desktop/menu-model.js');
 const mask = (...ids) => ids.reduce((n, id) => n + 2 ** IDS.indexOf(id), 0);
 
@@ -49,8 +49,9 @@ test('paw fingertips contact the interior of every key on the same perspective p
     const point = keyPoint(key.id, hand), pose = pawPose(hand, point, pet), tip = PAW_TIPS[pet][hand];
     const edge1 = project(key.x, key.y + key.h / 2), edge2 = project(key.x + key.w, key.y + key.h / 2);
     assert.ok(point.x > edge1.x && point.x < edge2.x, key.id);
-    assert.ok(Math.hypot(pose.end.x - pose.start.x, pose.end.y - pose.start.y) < 92, key.id + '/' + hand);
     assert.ok(Math.hypot((pose.end.x + tip.x) - point.x, (pose.end.y + tip.y) - point.y) < .001);
+    const reference = referenceKeyPoint(key.id,hand), far = referenceProject(key.x,key.y+key.h/2), near = referenceProject(key.x+key.w,key.y+key.h/2);
+    assert.ok(reference.x > far.x && reference.x < near.x, key.id + '/reference');
   }
 });
 
@@ -125,9 +126,9 @@ test('keyboard menu offers three checked role selections and hides roaming/actio
   assert.ok(!menu.build({ mode: 'pair', platform: 'darwin' })[0].children.some(item => item.children));
 });
 
-test('all new mode definitions use only the requested role and mark keyboard modes explicitly', async () => {
+test('the original pair uses one combined host and solo modes use only their requested role', async () => {
   const { MODES } = await import('../scripts/runtime.mjs');
-  assert.deepEqual(MODES['keyboard-pair'].pets, ['yier', 'bubu']);
+  assert.deepEqual(MODES['keyboard-pair'].pets, ['duo']);
   assert.deepEqual(MODES['keyboard-yier'].pets, ['yier']);
   assert.deepEqual(MODES['keyboard-bubu'].pets, ['bubu']);
   for (const name of ['keyboard-pair', 'keyboard-yier', 'keyboard-bubu']) assert.equal(MODES[name].keyboard, true);
@@ -135,7 +136,11 @@ test('all new mode definitions use only the requested role and mark keyboard mod
 
 test('reference sprite viewports stay within the pinned release image dimensions', () => {
   const art = require('../desktop/keyboard-art.js');
+  const png = require('node:fs').readFileSync(require('node:path').join(__dirname,'../desktop/keyboard-art',art.cutouts.file));
+  assert.equal(png.readUInt32BE(16),art.cutouts.width);
+  assert.equal(png.readUInt32BE(20),art.cutouts.height);
+  assert.equal(png[25],6,'the extracted portrait must retain RGBA alpha');
   for (const name of ['yier', 'bubu']) {
-    for (const [x, y, w, h] of [...art[name].eyes, ...art[name].paws]) assert.ok(x >= 0 && y >= 0 && w > 0 && h > 0 && x + w <= art.width && y + h <= art.height);
+    for (const [x, y, w, h] of [art[name].portrait, ...art[name].paws]) assert.ok(x >= 0 && y >= 0 && w > 0 && h > 0 && x + w <= art.width && y + h <= art.height);
   }
 });
