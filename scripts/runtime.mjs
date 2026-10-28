@@ -7,16 +7,20 @@ import { spawn } from 'node:child_process';
 import os from 'node:os';
 import { sharedSize } from './appearance.mjs';
 import { applyDesktopPatch } from './patch-desktop.mjs';
+import { ensureKeyboardArtwork } from './keyboard-artwork.mjs';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const STATE = path.join(ROOT, '.runtime');
 export const HOME = path.join(STATE, 'home');
 export const PORT = 17340;
 export const GALLERY_PORT = 17341;
-export const CONTROL_VERSION = 6;
+export const CONTROL_VERSION = 9;
 export const MODES = {
   pair: { label: '双人版', description: '一二、布布两个独立实例，各自活动', pets: ['yier', 'bubu'] },
   duo: { label: '组合版', description: '一个实例，播放两只同框的双人表情', pets: ['duo'] },
+  'keyboard-pair': { label: '键盘同步 · 一二和布布', description: '两只熊各自陪你打字', pets: ['yier', 'bubu'], keyboard: true },
+  'keyboard-yier': { label: '键盘同步 · 只有一二', description: '一二陪你打字', pets: ['yier'], keyboard: true },
+  'keyboard-bubu': { label: '键盘同步 · 只有布布', description: '布布陪你打字', pets: ['bubu'], keyboard: true },
 };
 const FRAMEWORK_ROOT = path.join(ROOT, 'node_modules', 'dsh-pet');
 export const exists = async p => { try { await fs.access(p); return true; } catch { return false; } };
@@ -53,7 +57,9 @@ export async function selectedMode() {
 }
 
 export async function prepare(mode) {
-  if (!MODES[mode]) throw Error('启动模式只能为 pair（双人版）或 duo（组合版）');
+  if (!Object.hasOwn(MODES, mode)) throw Error('无效的启动模式');
+  if (MODES[mode].keyboard && process.platform !== 'win32') throw Error('键盘同步模式目前支持 Windows 10/11；普通双人版和组合版仍可正常使用');
+  if (MODES[mode].keyboard) await ensureKeyboardArtwork();
   const defaults = await readJSON(path.join(ROOT, 'pet-settings.json'));
   let preferences = {};
   try { preferences = await readJSON(path.join(STATE, 'menu-settings.json')); } catch (error) {
@@ -76,6 +82,11 @@ export async function prepare(mode) {
     for (const pet of conf.pets) {
       pet.size = size; // Force one scale across yier, bubu and both kinds of duo scene.
       pet.display = MODES[mode].pets.includes(pack) ? 'both' : 'none';
+      if (MODES[mode].keyboard) {
+        pet.fixedEnabled = true;
+        // Keep the two keyboards apart; a solo bear starts in the first position.
+        pet.position.marginX = mode === 'keyboard-pair' && pack === 'bubu' ? 440 : 20;
+      }
       // Center a combined pet rather than leaving it at the third demo's position.
       if (pack === 'duo') pet.position.marginX = 390;
     }
@@ -101,11 +112,13 @@ export async function setMode(mode) {
   const previous = await selectedMode();
   if (!(await ownedHealth())) throw Error('桌宠尚未启动，请先运行一键安装启动脚本');
   await prepare(mode);
+  await applyDesktopPatch();
   try {
-    await request('/dsh-pet-7340/reload', 'POST');
     await fs.writeFile(path.join(STATE, 'mode'), mode);
+    await request('/dsh-pet-7340/reload', 'POST');
   } catch (error) {
     await prepare(previous);
+    await fs.writeFile(path.join(STATE, 'mode'), previous);
     throw error;
   }
   return currentStatus();
@@ -169,6 +182,8 @@ export async function start(mode) {
   await fs.mkdir(STATE, { recursive: true });
   const cli = path.join(FRAMEWORK_ROOT, 'lib', 'standalone.js');
   if (!(await exists(cli))) throw Error('请先运行 node scripts/install.mjs 安装依赖');
+  if (!Object.hasOwn(MODES, mode)) throw Error('无效的启动模式');
+  if (MODES[mode].keyboard) await ensureKeyboardArtwork();
   await applyDesktopPatch();
   const oldControl = await galleryHealth();
   if (oldControl && oldControl.version !== CONTROL_VERSION) {
@@ -201,6 +216,7 @@ export async function start(mode) {
   } else {
     const electron = await ensureElectron();
     await prepare(mode);
+    await fs.writeFile(path.join(STATE, 'mode'), mode);
     await detached([cli, '--port', String(PORT)], 'pet',
       { ...process.env, DSH_HOME: HOME, DSH_PET_ELECTRON_PATH: electron, YIER_BUBU_STATE_DIR: STATE });
     let ready = false;
@@ -241,6 +257,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     if (action === 'start') await start(mode);
     else if (action === 'stop') await stop();
     else if (action === 'status') console.log(JSON.stringify(await currentStatus(), null, 2));
-    else throw Error('用法：node scripts/runtime.mjs start|stop|status [--mode pair|duo]');
+    else throw Error('用法：node scripts/runtime.mjs start|stop|status [--mode pair|duo|keyboard-pair|keyboard-yier|keyboard-bubu]');
   } catch (error) { console.error(error.message); process.exitCode = 1; }
 }

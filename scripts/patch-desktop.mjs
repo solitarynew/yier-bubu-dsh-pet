@@ -2,6 +2,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { KEYBOARD_ART, ART_FILES } from './keyboard-artwork.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const MARKER = '/* YIER_BUBU_DESKTOP_MENU_V1 */';
 
@@ -39,7 +40,8 @@ export async function applyDesktopPatch() {
       if (base.split(anchor).length !== 2) throw Error('桌面命中区域代码不匹配，已停止打补丁');
       next = MARKER + '\n' + base.replace(anchor, anchor.replace('200', '128').replace('440', '512'));
     } else if (name === 'main.js') {
-      next = MARKER + '\n' + base + "\nrequire('./yier-interaction-main.cjs')({ ipcMain, BrowserWindow, shell });\n";
+      next = MARKER + '\n' + base + "\nrequire('./yier-interaction-main.cjs')({ ipcMain, BrowserWindow, shell });\n" +
+        "require('./yier-keyboard-main.cjs')({ ipcMain, BrowserWindow, app });\n";
     } else {
       const anchor = '<script src="./sprite.js"></script>';
       if (base.split(anchor).length !== 2) throw Error('框架 HTML 加载顺序不匹配，已停止打补丁');
@@ -47,13 +49,24 @@ export async function applyDesktopPatch() {
         '    <script src="./yier-menu-model.js"></script>\n' +
         '    <script src="./yier-menu-addon.js"></script>\n' +
         '    <script src="./yier-interaction-addon.js"></script>\n' +
-        '    <script src="./yier-status-sync-addon.js"></script>');
+        '    <script src="./yier-status-sync-addon.js"></script>\n' +
+        '    <link rel="stylesheet" href="./yier-keyboard-scene.css">\n' +
+        '    <script src="./yier-keyboard-model.js"></script>\n' +
+        '    <script src="./yier-keyboard-art.js"></script>\n' +
+        '    <script src="./yier-keyboard-scene.js"></script>\n' +
+        '    <script src="./yier-keyboard-addon.js"></script>');
     }
     if (current !== next) await fs.writeFile(file, next);
   }
   for (const [source, target] of [['menu-model.js', 'yier-menu-model.js'],
-    ['menu-addon.js', 'yier-menu-addon.js'], ['status-sync-addon.js', 'yier-status-sync-addon.js'], ['interaction-main.cjs', 'yier-interaction-main.cjs'], ['interaction-addon.js', 'yier-interaction-addon.js'], ['menu-preload.cjs', 'yier-menu-preload.cjs']]) {
+    ['menu-addon.js', 'yier-menu-addon.js'], ['status-sync-addon.js', 'yier-status-sync-addon.js'], ['interaction-main.cjs', 'yier-interaction-main.cjs'], ['interaction-addon.js', 'yier-interaction-addon.js'], ['menu-preload.cjs', 'yier-menu-preload.cjs'],
+    ...['keyboard-main.cjs', 'keyboard-input.cjs', 'keyboard-state.cs', 'keyboard-model.js', 'keyboard-art.js', 'keyboard-scene.css', 'keyboard-scene.js', 'keyboard-addon.js'].map(name => [name, 'yier-' + name])]) {
     await fs.copyFile(path.join(ROOT, 'desktop', source), path.join(helper, target));
+  }
+  await fs.mkdir(path.join(helper, 'keyboard-art'), { recursive: true });
+  for (const file of ART_FILES) {
+    try { await fs.copyFile(path.join(KEYBOARD_ART, file), path.join(helper, 'keyboard-art', file)); }
+    catch (error) { if (error.code !== 'ENOENT') throw error; } // Ordinary modes need no reference download.
   }
 }
 

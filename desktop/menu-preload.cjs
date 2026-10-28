@@ -11,7 +11,7 @@ function state() {
     try { mode = fs.readFileSync(path.join(directory, 'mode'), 'utf8').trim(); } catch {}
     try { settings = JSON.parse(fs.readFileSync(path.join(directory, 'menu-settings.json'), 'utf8')); } catch {}
   }
-  return { mode: mode === 'duo' ? 'duo' : 'pair', settings };
+  return { mode: ['pair', 'duo', 'keyboard-pair', 'keyboard-yier', 'keyboard-bubu'].includes(mode) ? mode : 'pair', settings, platform: process.platform };
 }
 function send(route, payload) {
   return new Promise((resolve, reject) => {
@@ -44,9 +44,30 @@ contextBridge.exposeInMainWorld('yierMenuBridge', {
   },
   openSyncSettings() { ipcRenderer.send('yier:open-sync-settings'); },
   setMode(mode) {
-    if (!['pair', 'duo'].includes(mode)) return Promise.reject(Error('无效模式'));
+    if (!['pair', 'duo', 'keyboard-pair', 'keyboard-yier', 'keyboard-bubu'].includes(mode)) return Promise.reject(Error('无效模式'));
     return send('/api/mode', { mode });
   },
+  setKeyboardSetting(setting, value) {
+    if (!['paused', 'effects'].includes(setting) || typeof value !== 'boolean') return Promise.reject(Error('无效键盘设置'));
+    return send('/api/keyboard/setting', { setting, value }).then(result => {
+      ipcRenderer.send('yier:keyboard-refresh');
+      return result;
+    });
+  },
+  onKeyboard(callback) {
+    if (typeof callback !== 'function') throw Error('需要键盘状态回调');
+    const listener = (_event, data) => callback(data);
+    ipcRenderer.on('yier:keyboard-frame', listener);
+    ipcRenderer.send('yier:keyboard-subscribe', true);
+    let closed = false;
+    return () => {
+      if (closed) return;
+      closed = true;
+      ipcRenderer.removeListener('yier:keyboard-frame', listener);
+      ipcRenderer.send('yier:keyboard-subscribe', false);
+    };
+  },
+  retryKeyboard() { ipcRenderer.send('yier:keyboard-retry'); },
   saveSettings(pet, settings) {
     if (!['yier', 'bubu', 'duo'].includes(pet)) return Promise.reject(Error('无效角色'));
     return send('/api/settings', { pet, ...settings });

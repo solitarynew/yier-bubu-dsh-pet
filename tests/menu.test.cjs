@@ -29,7 +29,7 @@ test('only the selected animation is marked without marking categories or mutati
   assert.equal(menu.find(item => item.action === 'yier-roam').label.startsWith('✓ '), false);
 });
 
-function fake(preferences = {}) {
+function fake(preferences = {}, mode = 'pair') {
   class Sprite {
     constructor() {
       this.pet = { id: 'yier' }; this.anim = '待机'; this.menuOpen = false;
@@ -44,7 +44,7 @@ function fake(preferences = {}) {
   }
   const saved = [];
   const context = { PetSprite: Sprite, console, window: { YierMenuModel: model,
-    yierMenuBridge: { state: () => ({ mode: 'pair', settings: { yier: preferences } }),
+    yierMenuBridge: { state: () => ({ mode, settings: { yier: preferences } }),
       saveSettings: async (pet, settings) => saved.push({ pet, settings }),
       setMode: async () => {}, quit: async () => {} } } };
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../desktop/menu-addon.js'), 'utf8'), context);
@@ -58,6 +58,13 @@ test('old pinned settings are ignored and upstream random playback is preserved'
   assert.equal(sprite.played.at(-1), 'random');
   sprite.handleEnded();
   assert.equal(sprite.originalEnded, 1);
+});
+
+test('opening the keyboard menu keeps the bear fixed even when ordinary roaming is enabled', () => {
+  const { sprite, addon } = fake({ roam: true }, 'keyboard-yier');
+  addon.build(sprite, tree);
+  assert.equal(sprite.pet.fixedEnabled, true);
+  assert.equal(sprite._yierRoam, true);
 });
 
 test('menu selection stops old movement and delegates one-shot playback to upstream', () => {

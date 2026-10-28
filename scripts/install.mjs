@@ -4,6 +4,7 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { ROOT, HOME, STATE, exists, readJSON, run, ensureElectron, start, selectedMode, openGallery } from './runtime.mjs';
+import { ensureKeyboardArtwork } from './keyboard-artwork.mjs';
 
 try {
   const [major, minor] = process.versions.node.split('.').map(Number);
@@ -25,6 +26,7 @@ try {
     await run(npm, ['ci', '--ignore-scripts', '--legacy-peer-deps', '--omit=dev', '--no-audit', '--no-fund']);
   }
   await ensureElectron();
+  if (process.platform === 'win32') await ensureKeyboardArtwork();
   const at = process.argv.indexOf('--mode');
   const mode = at >= 0 ? process.argv[at + 1] : await selectedMode();
   await start(mode);

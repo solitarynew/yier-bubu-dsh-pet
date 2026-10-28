@@ -16,4 +16,10 @@
 
 ## 来源与变换记录
 
+键盘模式参考 [Li-Jiangjiu/YierBubu](https://github.com/Li-Jiangjiu/YierBubu) 的二维斜侧键盘画面；上游代码 MIT 许可原文保留于 `third_party/Li-Jiangjiu-YierBubu/LICENSE`。本项目独立实现 Win32 键位状态流、32 键投影和桌宠模式接入，人物与圆爪在运行时引用上游三张 PNG，通过 SVG 裁切、表情局部切换和遮挡边缘补齐适配独立角色。
+
+PNG 不收录于本源码仓库。Windows 首次安装时从 [v0.4.0-beta.3 的公开 Mac 包](https://github.com/Li-Jiangjiu/YierBubu/releases/download/v0.4.0-beta.3/YierBubu-macOS-Universal-v0.4.0-beta.3.zip) 提取，仅用于本机运行缓存；不会执行其中的应用。固定包 SHA256 为 `e4aa6030330ec0fdbb31bd63d6739793f1086cacf82b4eea1e4187ed8ddaed6b`，来源、文件名及校验在 `scripts/keyboard-artwork.mjs` 中固定。
+
+上游 [第三方声明](https://github.com/Li-Jiangjiu/YierBubu/blob/main/THIRD_PARTY_NOTICES.md) 明确：角色及 PNG 权利不在代码 MIT 许可内，公开分发授权尚未确认。下载校验与本机引用不授予额外素材使用或再分发权；本项目不将这些素材重新授权。
+
 SOURCE_REVIEW.md 记录选材理由、原始来源的证据边界与已知缺陷；assets-manifest.json 记录源动作 ID、转换参数和成品 SHA256。没有将上游残留小标记处理成自己的署名。

@@ -9,6 +9,7 @@ import { ROOT, STATE, CONTROL_VERSION, GALLERY_PORT, PORT, currentStatus, setMod
 import { StatusSync, SOURCES, parseDshState, dshStateUrl } from './status-sync.mjs';
 import { installCodexHooks } from './install-codex-hooks.mjs';
 import { SIZE_PRESETS } from './appearance.mjs';
+import { KEYBOARD_ART, ART_FILES } from './keyboard-artwork.mjs';
 import { InteractionCoordinator, validReport, INTERACTION_STYLES } from './interaction.mjs';
 const interactions = new InteractionCoordinator();
 let preferences = {};
@@ -97,6 +98,11 @@ const server = http.createServer(async (req, res) => {
       }
       const data = await body(req);
       if(url.pathname === '/api/status-sync/poll')return json(res,200,statusSync.snapshot());
+      if (url.pathname === '/api/keyboard/setting') {
+        if (!['paused', 'effects'].includes(data.setting) || typeof data.value !== 'boolean') return json(res,400,{error:'无效键盘设置'});
+        await updatePreferences({ [data.setting === 'paused' ? 'keyboardPaused' : 'keyboardEffects']: data.value });
+        return json(res,200,{ paused: preferences.keyboardPaused === true, effects: preferences.keyboardEffects !== false });
+      }
       if(url.pathname === '/api/status-sync/setting') {
         if(!SOURCES.includes(data.source)||typeof data.enabled!=='boolean')return json(res,400,{error:'无效状态同步设置'});
         let hooks;
@@ -162,7 +168,7 @@ const server = http.createServer(async (req, res) => {
         return json(res, 200, result);
       }
       if (url.pathname === '/api/mode') {
-        if (!MODES[data.mode]) return json(res, 400, { error: '模式只能是双人版或组合版' });
+        if (!Object.hasOwn(MODES, data.mode)) return json(res, 400, { error: '无效启动模式' });
         if (changingMode) return json(res, 409, { error: '正在切换模式，请稍候' });
         changingMode = true;
         try {
@@ -194,9 +200,12 @@ const server = http.createServer(async (req, res) => {
     let relative = decodeURIComponent(url.pathname);
     if (relative === '/') relative = '/review/';
     if (relative.endsWith('/')) relative += 'index.html';
-    const file = path.resolve(ROOT, '.' + relative);
+    const referenceFile = relative.startsWith('/keyboard-assets/') && ART_FILES.includes(relative.slice('/keyboard-assets/'.length));
+    const file = referenceFile ? path.join(KEYBOARD_ART, relative.slice('/keyboard-assets/'.length)) : path.resolve(ROOT, '.' + relative);
     const rootRelative = path.relative(ROOT, file);
-    if (rootRelative.startsWith('..') || !['review', 'packs'].includes(rootRelative.split(path.sep)[0])) {
+    const keyboardAsset = ['desktop/keyboard-model.js', 'desktop/keyboard-art.js', 'desktop/keyboard-scene.js',
+      'desktop/keyboard-scene.css'].includes(rootRelative.split(path.sep).join('/'));
+    if (rootRelative.startsWith('..') || (!referenceFile && !keyboardAsset && !['review', 'packs'].includes(rootRelative.split(path.sep)[0]))) {
       return json(res, 404, { error: '文件不存在' });
     }
     const real = await fs.realpath(file);

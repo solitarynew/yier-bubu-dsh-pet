@@ -6,7 +6,7 @@
     const pref = bridge.state().settings[sprite.pet.id] || {};
     sprite._yierPinned = null; // Original one-shot menu semantics; ignore older pinned settings.
     sprite._yierRoam = pref.roam !== false;
-    sprite.pet.fixedEnabled = !sprite._yierRoam;
+    sprite.pet.fixedEnabled = bridge.state().mode.startsWith('keyboard-') || !sprite._yierRoam;
     sprite._yierMenuReady = true;
   }
   function fail(sprite, error) {
@@ -36,6 +36,7 @@
       const syncView=sprite._yierSyncView || Object.fromEntries([['codex','syncCodex'],['dsh','syncDsh']].map(([source,key])=>
         [source,{enabled:settings[key]===true,label:settings[key]===true?'等待连接':'已关闭'}]));
       return window.YierMenuModel.build({ mode: bridge.state().mode, pinned: sprite._yierPinned,
+        platform: bridge.state().platform, keyboard: { paused: settings.keyboardPaused === true, effects: settings.keyboardEffects !== false, status: sprite._yierKeyboardView?.status },
         interactionStyle: bridge.state().settings.interactionStyle || 'mixed', interactionEnabled: bridge.state().settings.interactionEnabled !== false, statusSync: syncView, size: sprite.size, anim: sprite.anim, roam: sprite._yierRoam, animations: sprite.animations, actionTree });
     },
     handle(sprite, leaf) {
@@ -46,6 +47,13 @@
       }
       if (leaf.action?.startsWith('yier-mode-')) {
         bridge.setMode(leaf.action.slice('yier-mode-'.length)).catch(error => fail(sprite, error));
+      } else if (leaf.action === 'yier-keyboard-retry') {
+        bridge.retryKeyboard();
+      } else if (leaf.action === 'yier-keyboard-pause' || leaf.action === 'yier-keyboard-effects') {
+        const paused = leaf.action === 'yier-keyboard-pause';
+        const settings = bridge.state().settings;
+        bridge.setKeyboardSetting(paused ? 'paused' : 'effects', paused ? settings.keyboardPaused !== true : settings.keyboardEffects === false)
+          .catch(error => fail(sprite, error));
       } else if (leaf.action === 'yier-sync-settings') {
         bridge.openSyncSettings();
       } else if (leaf.action === 'yier-sync-codex' || leaf.action === 'yier-sync-dsh') {
